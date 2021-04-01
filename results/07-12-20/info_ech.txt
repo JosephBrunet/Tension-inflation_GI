@@ -1,0 +1,33 @@
+z 31.874
+
+
+07/12/2020
+
+Info echantillons:
+
+Ech1:
+
+acendent aorta
+tear circ 
+longueur: 22 mm
+stretch 1.23
+
+PAS de rupture
+
+
+ech2:
+ascendent
+circ
+longueur 21
+rupt vers 700
+
+ech3
+desendant
+circ
+longeur 26 mm
+
+
+ech 4
+asc
+long circ ?
+longueur24

@@ -116,8 +116,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
 
 
-        QMessageBox.about(self, "Directory:", "Choose your directory folder")
-        self.path = str(QFileDialog.getExistingDirectory(self, "Select your main directory")) #Choose a path
+        self.path = os.getcwd()+'/results'
         
         
         self.progress = QProgressBar(self)

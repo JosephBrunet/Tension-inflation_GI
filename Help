@@ -3,17 +3,18 @@
 HELP :
 ----------------------------------------------------
 
-Work done by Joseph Brunet (CIS)
-joseph.brunet@emse.fr
+Work done by Joseph Brunet (Ecole des Mines de Saint-Etienne, CIS)
+jo.brunet73@gmail.com
 
 ----------------------------------------------------
 
 Python packages needed :
 
 - pyqt
-- pyserial
-- pyqtgraph
-- PIPython (install from the PI cd - present in the file Software&Drivers)
+- pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
+- pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
+- simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
+- PIPython             ==>  (install from the PI cd - present in the file Software&Drivers)
 
 
 Drivers needed :

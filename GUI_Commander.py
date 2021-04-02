@@ -8,6 +8,7 @@ Created on Mon Nov 12 14:24:18 2018
 
 import os
 
+
 path = os.path.dirname(os.path.realpath(__file__))   # Find path of the python script file
 os.chdir(path)  #Change current directory
 
@@ -16,7 +17,7 @@ import sys
 import time
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit, 
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
     QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox, QFrame, QSizePolicy, QInputDialog, QGroupBox, QRadioButton)
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
@@ -29,7 +30,7 @@ import Arduino    #Program created to connect / read... with the arduino microco
 
 import Pump_seringe   #Program to control the pump
 
-import MotorPI    #Program to control the axial motor 
+import MotorPI    #Program to control the axial motor
 
 
 from GUI_step1 import IniWindow
@@ -67,15 +68,15 @@ class Controller:
         self.IniWindow.close()
         self.MainWindow.show()
 
-        
-    
+
+
 
 
 
 
 
 def main():
-    
+
     def myExitHandler():
         """Function that run when the window is stopped"""
         try:
@@ -90,19 +91,19 @@ def main():
             controller.IniWindow.timer_ini.stop()
         except:
             pass
-    
+
     path_dir = os.path.abspath(__file__)
     path_dir=os.path.dirname(path_dir)
     os.chdir( path_dir )
-    
-    
+
+
     app = QtWidgets.QApplication(sys.argv)
     app.aboutToQuit.connect(myExitHandler) # myExitHandler is a callable
-    
+
 #######################################################
     #Palette color for change window type and style
 #######################################################
-    
+
     app.setStyle("Fusion")
     #app.setStyle("Windows")
      #Fusion dark palette from https://gist.github.com/QuantumCD/6245215.
@@ -122,10 +123,10 @@ def main():
     palette.setColor(QPalette.HighlightedText, Qt.black)
     app.setPalette(palette)
     app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
-    
-    
-    
-    
+
+
+
+
     controller = Controller()
     controller.show_IniWindow()
     sys.exit(app.exec_())

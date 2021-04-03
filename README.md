@@ -1,4 +1,4 @@
-# Tension-inflation_GI
+# Tension-inflation graphical interface
 
 
 ---
@@ -10,6 +10,8 @@ Mail: jo.brunet73@gmail.com
 ***
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
+
+## Project organisation:
 
 The project organisation is the following one:
 
@@ -32,8 +34,14 @@ The project organisation is the following one:
 └── Software&Drivers                 # Folder with the packages to install
 ```
 
+## Software steps:
+
 
 After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
+
+
+#### Step 1 : Initialisation
+
 
 The initialisation will be launched (code in initialisation.py). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
 
@@ -48,6 +56,7 @@ The initialisation will be launched (code in initialisation.py). The objectives 
 
 
 
+#### Step 2 : Main window 
 
 
 ![Main step](./ressources/Main_step.png)

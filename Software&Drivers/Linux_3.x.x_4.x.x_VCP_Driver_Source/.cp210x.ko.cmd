@@ -1,0 +1,1 @@
+cmd_/home/jo/Téléchargements/Linux/cp210x.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id=sha1  -T ./scripts/module-common.lds -o /home/jo/Téléchargements/Linux/cp210x.ko /home/jo/Téléchargements/Linux/cp210x.o /home/jo/Téléchargements/Linux/cp210x.mod.o;  true

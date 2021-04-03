@@ -1,12 +1,13 @@
 # Tension-inflation_GI
 
 
-----------------------------------------------------
+---
 
 Work done by Joseph Brunet (Ecole des Mines de Saint-Etienne, CIS)
+
 Mail: jo.brunet73@gmail.com
 
-----------------------------------------------------
+---
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
 
@@ -32,14 +33,27 @@ The project organisation is the following one:
 ```
 
 
-After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer) the GUI will 
+After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
 
-the initialisation will be launched (code in initialisation.py). 
+The initialisation will be launched (code in initialisation.py). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
+
+![Ini step](./resources/Ini_step.png)
+
+
+
+* The button `Pass the initialisation` is to pass to the step 2 directly.
+* The result directory is where the output of the test will be printed
+* The connection show if the different devices are connected or not (green = connected). The button `Try connection` is to try to establish the connection with the devices
+* The button `Start initialisation` is to let the motor find the limit sensor in order to know its displacement position.
 
 
 
 
-----------------------------------------------------
+
+![Main step](./resources/Main_step.png)
+
+
+---
 
 Python packages required :
 
@@ -47,17 +61,18 @@ Python packages required :
 * pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
 * pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
 * simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
-* PIPython             ==>  (install from the PI cd - `https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing`, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
+* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
 
 
 Drivers required :
 
-* Driver PI C663 (install from the PI cd - `https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing`)
+* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
 	* Folder linux if linux os
 	* .exe if Windows os
-* Driver RS485 (CP210x USB to UART Bridge VCP) - Instruction to install it below - 
+* Driver RS485 (CP210x USB to UART Bridge VCP) - Instruction to install it below -
 
-----------------------------------------------------
+---
+
 Command to install the RS485 drivers
 
 Window:
@@ -68,7 +83,7 @@ Ubuntu:
 or
 https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
 
-Puis suivez ces instructions
+Then follow these commands
 ```
 $ cd .../Software&Drivers/Linux_3.x.x_4.x.x_VCP_Driver_Source/ # change directory to the cp210x folder, adjust name if necessary
 $ make #compile the source code
@@ -76,4 +91,4 @@ $ sudo cp cp210x.ko /lib/modules/"$(uname -r)"/kernel/drivers/usb/serial/ # copy
 $ sudo modprobe usbserial # load this kernel module
 $ sudo modprobe cp210x # load this kernel module
 ```
-----------------------------------------------------
+---

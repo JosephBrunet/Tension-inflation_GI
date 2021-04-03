@@ -40,7 +40,7 @@ The project organisation is the following one:
 After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
 
 
-#### Step 1 : Initialisation
+### Step 1 : Initialisation
 
 
 The initialisation will be launched (code in initialisation.py). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
@@ -56,7 +56,7 @@ The initialisation will be launched (code in initialisation.py). The objectives 
 
 
 
-#### Step 2 : Main window 
+### Step 2 : Main window
 
 
 ![Main step](./ressources/Main_step.png)
@@ -64,7 +64,9 @@ The initialisation will be launched (code in initialisation.py). The objectives 
 
 ---
 
-Python packages required :
+## Requirements:
+
+### Python packages required :
 
 * pyqt                 ==>  (https://anaconda.org/anaconda/pyqt)
 * pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
@@ -73,7 +75,7 @@ Python packages required :
 * PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
 
 
-Drivers required :
+### Drivers required :
 
 * Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
 	* Folder linux if linux os

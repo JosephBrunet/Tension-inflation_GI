@@ -43,7 +43,7 @@ After executing `GUI_main.py` (and if all the python packages and drivers were i
 ### Step 1 : Initialisation
 
 
-The initialisation will be launched (code in initialisation.py). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
+The initialisation will be launched (code in `initialisation.py`). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
 
 ![Ini step](./ressources/Ini_step.png)
 
@@ -59,8 +59,21 @@ The initialisation will be launched (code in initialisation.py). The objectives 
 ### Step 2 : Main window
 
 
+The main window will be launched (code in `mainwindow.py`). This window will appear:
+
 ![Main step](./ressources/Main_step.png)
 
+The main window is divided into two panel: the `Left Panel` and the `Right Panel`.
+
+The `Left Panel`: use to place control the values of the different quantities in real time and to place the sample in the initiale conditions before the beginning of the tension-inflation test.
+
+Once the sample is place in the good conditions (in term of displacement and pressure), one can press the button `Positioning finished =>` to pass to the right panel
+
+The `Right Panel`: use to launch the tension-inflation test.
+* The `mode:Volume/Pressure` correspond to the control of the pump in pressure or in volume.
+* The `mode:Displacement/Load` correspond to the control of the motor in displacement or in load.
+* In `cycle Motor/Pump` you can enter the number of cycles you want before the motor or the pump stop to the final target (nothing enter = no cycles).
+* In `Commands` you can enter the target displacement/pressure (nothing enter = no command). 
 
 ---
 
@@ -102,4 +115,3 @@ $ sudo cp cp210x.ko /lib/modules/"$(uname -r)"/kernel/drivers/usb/serial/ # copy
 $ sudo modprobe usbserial # load this kernel module
 $ sudo modprobe cp210x # load this kernel module
 ```
----

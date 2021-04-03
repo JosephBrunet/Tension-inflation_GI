@@ -503,7 +503,7 @@ class Right_panel(object):
 #######################################################
 
         label_preloading = QLabel()    #Creation of the widget
-        label_preloading.setText(" Pre-loading: ")    #Set the text in the label
+        label_preloading.setText(" Pre-conditioning: ")    #Set the text in the label
         label_preloading.setAlignment(Qt.AlignCenter)   #Alignement of the label (here it's the vertical alignement)
         label_preloading.setFont(QFont("Arial",16,QFont.Bold))    #Set the writing font with the size
 
@@ -522,7 +522,7 @@ class Right_panel(object):
         self.input_cycleF.setPalette(self.input_cycleF.palette)
 
 
-        self.label_cyclF = QLabel("Cycle Disp:", self)
+        self.label_cyclF = QLabel("Cycle Motor:", self)
         self.label_cyclF.setFont(QFont("Arial",12,QFont.Bold))
         #self.lab.setGeometry(QRect(70, 80, 300, 300)) #(x, y, width, height)
 
@@ -675,12 +675,6 @@ class Right_panel(object):
         self.button_restart.setFixedSize( 60, 50 )
         self.button_restart.setIconSize(QSize(40, 40))
 
-        self.button_scan = QPushButton('SCAN', self)
-        self.button_scan.clicked.connect(self.clickMethodScan)
-        self.button_scan.setStatusTip('Scan start')
-        self.button_scan.setFixedSize( 60, 50 )
-        self.button_scan.setIconSize(QSize(40, 40))
-
         box_break = QHBoxLayout()
         box_break.addSpacing (20)
         box_break.addStretch()
@@ -688,9 +682,6 @@ class Right_panel(object):
         box_break.addSpacing (20)
         box_break.addStretch()
         box_break.addWidget(self.button_restart)
-        box_break.addSpacing (20)
-        box_break.addStretch()
-        box_break.addWidget(self.button_scan)
         box_break.addSpacing (20)
         box_break.addStretch()
 
@@ -880,13 +871,6 @@ class Right_panel(object):
         self.running_phase()
         # Restart the pump
 
-
-
-    def clickMethodScan(self):
-        """Scan"""
-        with open(self.path + '/' + self.file_save + '.txt', 'a') as mon_fichier:
-            mon_fichier.write("Scan start: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "\n")
-        print('Scan started')
 
 
     def clickMethodClearGraphs(self):

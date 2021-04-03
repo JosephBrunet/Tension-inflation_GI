@@ -403,7 +403,6 @@ class Left_panel(object):
         self.button_positioning.setDisabled(True)
         self.button_pause.setDisabled(True)
         self.button_restart.setDisabled(True)
-        self.button_scan.setDisabled(True)
 
 
 
@@ -424,7 +423,6 @@ class Left_panel(object):
         self.input_cycleP.setDisabled(True)
         self.button_pause.setDisabled(True)
         self.button_restart.setDisabled(True)
-        self.button_scan.setDisabled(True)
 
         self.button_vol_more.setDisabled(False)
         self.button_vol_less.setDisabled(False)
@@ -472,7 +470,6 @@ class Left_panel(object):
         self.Radio_graphOFF.setDisabled(True)
         self.button_pause.setDisabled(False)
         self.button_restart.setDisabled(False)
-        self.button_scan.setDisabled(False)
 
 
     def pause_phase(self):

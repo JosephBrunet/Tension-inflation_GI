@@ -7,7 +7,7 @@ Work done by Joseph Brunet (Ecole des Mines de Saint-Etienne, CIS)
 
 Mail: jo.brunet73@gmail.com
 
----
+***
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
 
@@ -37,7 +37,7 @@ After executing `GUI_main.py` (and if all the python packages and drivers were i
 
 The initialisation will be launched (code in initialisation.py). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
 
-![Ini step](./resources/Ini_step.png)
+![Ini step](./ressources/Ini_step.png)
 
 
 
@@ -50,7 +50,7 @@ The initialisation will be launched (code in initialisation.py). The objectives 
 
 
 
-![Main step](./resources/Main_step.png)
+![Main step](./ressources/Main_step.png)
 
 
 ---

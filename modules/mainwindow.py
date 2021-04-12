@@ -22,6 +22,7 @@ from modules.sensors_dialogs import MotorPI    #Program to control the axial mot
 
 from modules.mainwindow_modules.Left_panel import *
 from modules.mainwindow_modules.Right_panel import *
+from modules.mainwindow_modules.CommandThread import CommandThread
 
 from simple_pid import PID
 
@@ -82,30 +83,6 @@ class ReadThread(QThread):
 ##############################################################################################################
 
 
-
-
-class ReadVolThread(QThread):
-
-    jobVol_done = pyqtSignal(object)
-
-    def __init__(self):
-        super(QThread, self).__init__()
-
-
-    def run(self):
-        try:
-            vol = Pump_seringe.vol_count()
-            if isinstance(vol, float):
-                self.jobVol_done.emit(vol)
-        except:
-            print("ReadVolThread run problem")
-
-
-
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-
 class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the graphical interface (GI) class
 
     return_window = QtCore.pyqtSignal()
@@ -146,9 +123,6 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.ReadThread = ReadThread()
         self.ReadThread.job_done.connect(self.on_job_done)
-
-        self.ReadVolThread = ReadVolThread()
-        self.ReadVolThread.jobVol_done.connect(self.on_jobVol_done)
 
         QMainWindow.__init__(self)
 
@@ -196,7 +170,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         INFORMATION
 
         "self.something" means that "something" is an atribute of the class
-        if you don't put it "something" will only be local)
+        if you don't put "self." the variable or method will only be local)
         '''
 
 #######################################################
@@ -210,7 +184,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.timer = QtCore.QTimer()    #Set the timer
         self.timer.timeout.connect(self.update_window)
-        self.timer.start(100)    #Start the timer with clocking of 50 ms
+        self.timer.start(70)    #Start the timer with clocking of 70 ms
 
 #######################################################
         #Def menubar
@@ -412,10 +386,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 #######################################################
     def Test_call(self):
 
-
-
         print('start test')
-
 
         self.Radio_graphOFF.setChecked(True)
         self.graph_state(self.Radio_graphOFF)
@@ -658,27 +629,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
                         return
             else:
                 return
-#                while 1:
-#                    text, okPressed = QInputDialog.getText(self, "Sample name","Name :", QLineEdit.Normal, "")
-#                    if not okPressed:
-#                        return
-#                    if okPressed and text != '':
-#                        if not os.path.exists(text + ".txt"):
-#                            self.file_save = text
-#                            with open(self.path + '/' + self.file_save + '.txt', 'a') as mon_fichier:     #Initialize the saving file
-#                                mon_fichier.write(self.file_save + header)
-#                            break
-#
-#                        else:
-#                            msg = QMessageBox.question(self,"WARNING: File already exist","Do you want to replace it ?",
-#                                                               QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-#                            if msg == QMessageBox.Yes:
-#                                self.file_save = text
-#                                with open(self.path + '/' + self.file_save + '.txt', 'w') as mon_fichier:     #Initialize the saving file
-#                                    mon_fichier.write(self.file_save + header)
-#                                break
-#                    else:
-#                        return
+
         else:
             while 1:
                 text, okPressed = QInputDialog.getText(self, "Sample name","Name :", QLineEdit.Normal, "")
@@ -830,20 +781,16 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
     def update_window(self):
         """Method called each time the timer clocks"""
+        
+        self.connectionCall()  #Method to check the connection of the devices (method in "Left_panel")
+
         try:
             #[self.secu,self.ori,self.F,self.P] = read()    #Method to save current value of load and pressure
             self.ReadThread.start()
         except:
             print("ReadThread pb")
         self.vol=0
-#        if not self.pump_run:
-#            if self.c >= 5:
-#                try:
-#                    self.ReadVolThread.start()
-#                except:
-#                    print("ReadVolThread pb (in update function)")
-#                self.c = 0
-#            self.c = self.c +1
+
 #
         try:
             self.d = MotorPI.motor_pos()
@@ -966,7 +913,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 #                    self.pump_run = False
 
     def closeEvent(self, event):
-        print("event")
+        print("Close event")
         reply = QMessageBox.question(self, 'Message',"Are you sure to quit?", QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
@@ -976,50 +923,4 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         else:
             event.ignore()
 
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-#
-# def main(path):
-#
-#     def myExitHandler():
-#         """Function that run when the window is stopped"""
-#
-#         try:
-#             mainWin.CommandThread.stop()
-#         except:
-#             print('Command Thread problem')
-#         try:
-#             MotorPI.stop()
-#         except:
-#             print("motor problem")
-#         try:
-#             Pump_seringe.stop()
-#         except:
-#             print("pump problem")
-#
-#         Arduino.disconnect()
-#
-# #        if mainWin.timer.isActive():
-# #            mainWin.timer.cancel()
-# #            #mainWin.timer.stop()    #Stop the timer
-# #            print("Timer stopped")
-#
-# #######################################################
-#     #Set my window
-# #######################################################
-#
-#     app = QtWidgets.QApplication(sys.argv)
-#     app.aboutToQuit.connect(myExitHandler) # myExitHandler is a callable
-#
-# #######################################################
-#     #Create the window object
-# #######################################################
-#
-#     mainWin = MainWindow(path)
-#     mainWin.show()
-#
-#     try:    #Catch the exceptions
-#         sys.exit( app.exec_() )
-#     except SystemExit:
-#         print("Window closed !")
+

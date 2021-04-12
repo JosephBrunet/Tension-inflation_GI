@@ -13,10 +13,10 @@ ser.timeout = .1
 
 #Find the port of the Pump
 for i in serial.tools.list_ports.comports():
-    print(i)
+    #print(i)
     if str(i).split()[2].find('USB-Serial') != -1:
         ser.port = str(i).split()[0]
-        print('\n\nPump port: '+ser.port)
+        print('Pump port found: '+ser.port)
 
 pump = 0
 
@@ -24,17 +24,28 @@ pump = 0
 
 def findport():
     for i in serial.tools.list_ports.comports():
-        print(i)
+        #print(i)
         if str(i).split()[2].find('USB-Serial') != -1:
             ser.port = str(i).split()[0]
-            print('\n\nPump port: '+ser.port)
+            print('Pump port found: '+ser.port)
+         
 
 def connect():
+    
+    if isconnected():
+        return
+    
+    findport()
     ser.open()    #We open the port
 
 
 def isconnected():
-    return ser.is_open
+    isconnected = False
+    for i in serial.tools.list_ports.comports():
+        if str(i).split()[2].find('USB-Serial') != -1 and ser.is_open:
+            isconnected= True  
+    return isconnected
+
 
 
 def disconnect():
@@ -215,8 +226,8 @@ def stop():
 
 def dose(vol):
     """Stop the pump"""
-    disconnect()
-    connect()
+    #disconnect()
+    #connect()
     vol = float(vol)
     if vol < 0:
         setDirection('WDR')

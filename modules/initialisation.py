@@ -23,6 +23,7 @@ from serial import SerialException
 from modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
 from modules.sensors_dialogs import Pump_seringe    #Program to control the pump
 from modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from modules.mainwindow_modules.CommandThread import CommandThread
 
 
 
@@ -94,6 +95,8 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
         self.timer_ini = QtCore.QTimer()    #Set the timer
         self.timer_ini.timeout.connect(self.update_ini)   #Each time the timer clock, this method is called
+        self.timer_ini.start(200)    #Start the timer with clocking of 200 ms
+
 
         self.progress = QProgressBar(self)
         self.progress.setGeometry(200, 80, 250, 20)
@@ -168,11 +171,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.label_connection = QLabel("Connections: ")
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
-        self.label = QLabel()
-        self.label.setText("Waiting")
-        self.label.setAlignment(Qt.AlignCenter)
-        self.label.setFont(QFont("Arial",20,QFont.Bold))
-
         self.pixmap_0 = QPixmap()
         self.pixmap_0.load('ressources/nottick.png')
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
@@ -189,6 +187,12 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
         self.label_pum = QLabel()
         self.label_pum.setPixmap(self.pixmap_0)
+        
+        
+        self.label = QLabel()
+        self.label.setText("Waiting")
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setFont(QFont("Arial",20,QFont.Bold))
 
 #######################################################
         # Creation of the different composent of the window (Layout !!)
@@ -249,6 +253,8 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.setCentralWidget(centralWidget)
 
         self.show
+        
+        self.connectionCall()
 
 #######################################################
         # Def functions
@@ -264,37 +270,37 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
     def connectionCall(self):
         """Function to connect to pump motor and arduino"""
+        
+        
         try:
-            Arduino.findport()
             Arduino.connect()
         except:
-            print("arduino findport problem")
+            print("arduino connection problem")
         if Arduino.isconnected():
             self.label_ard.setPixmap(self.pixmap_1)
         else:
             self.label_ard.setPixmap(self.pixmap_0)
 
         try:
-            Pump_seringe.findport()
             Pump_seringe.connect()
         except:
-            print("pump findport problem")
+            print("pump connection problem")
         if Pump_seringe.isconnected():
-            self.label_ard.setPixmap(self.pixmap_1)
+            self.label_pum.setPixmap(self.pixmap_1)
         else:
-            self.label_ard.setPixmap(self.pixmap_0)
+            self.label_pum.setPixmap(self.pixmap_0)
 
         try:
-            MotorPI.findport()
             MotorPI.connect()
-            MotorPI.ref()
         except:
-            print("motor findport problem")
+            print("motor connection problem")
 
         if MotorPI.isconnected():
-            self.label_ard.setPixmap(self.pixmap_1)
+            self.label_mot.setPixmap(self.pixmap_1)
         else:
-            self.label_ard.setPixmap(self.pixmap_0)
+            self.label_mot.setPixmap(self.pixmap_0)
+            
+        #print('connection test')
 
 
 
@@ -304,51 +310,27 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         #######################################################
         ## CONNECTION WITH ARDUINO/PUMP/MOTOR
 
-        try:
-            Arduino.findport()
-        except:
-            print("arduino findport problem")
-        try:
-            Pump_seringe.findport()
-        except:
-            print("pump findport problem")
-        try:
-            MotorPI.findport()
-        except:
-            print("motor findport problem")
+        #######################################################
+        ## CONNECTION WITH ARDUINO/PUMP/MOTOR
+
+        self.connectionCall()
 
 
         msg = ""
-        try:
-            Arduino.connect()
-        except:
-            print("Can't connect to arduino")
         if Arduino.isconnected():
             msg += "Arduino: Connected\n"
         else:
             msg += "Arduino: Not connected\n"
 
-        try:
-            Pump_seringe.connect()
-        except:
-            print("Can't connect to pump")
         if Pump_seringe.isconnected():
             msg += "Pump: Connected\n"
         else:
             msg += "Pump: Not connected\n"
 
-        try:
-            MotorPI.connect()
-            MotorPI.ref()
-        except:
-            print("Can't connect to motor")
-        try:
-            if MotorPI.isconnected():
-                msg += "Motor: Connected\n"
-            else:
-                msg += "Motor: Not connected\n"
-        except:
-            pass
+        if MotorPI.isconnected():
+            msg += "Motor: Connected\n"
+        else:
+            msg += "Motor: Not connected\n"
 
 
         msg = QMessageBox.question(self,"Continue ?",msg+"\n\nDo you want to continue ?",
@@ -445,44 +427,20 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         #######################################################
         ## CONNECTION WITH ARDUINO/PUMP/MOTOR
 
-        try:
-            Arduino.findport()
-        except:
-            print("arduino findport problem")
-        try:
-            Pump_seringe.findport()
-        except:
-            print("pump findport problem")
-        try:
-            MotorPI.findport()
-        except:
-            print("motor findport problem")
+        self.connectionCall()
 
 
         msg = ""
-        try:
-            Arduino.connect()
-        except:
-            print("Can't connect to arduino")
         if Arduino.isconnected():
             msg += "Arduino: Connected\n"
         else:
             msg += "Arduino: Not connected\n"
 
-        try:
-            Pump_seringe.connect()
-        except:
-            print("Can't connect to pump")
         if Pump_seringe.isconnected():
             msg += "Pump: Connected\n"
         else:
             msg += "Pump: Not connected\n"
 
-        try:
-            MotorPI.connect()
-            MotorPI.ref()
-        except:
-            print("Can't connect to motor")
         if MotorPI.isconnected():
             msg += "Motor: Connected\n"
         else:
@@ -527,14 +485,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.timer_ini.start(100)
 
 
-        #######################################################
-        #######################################################
-        #------------------
-        ## ASK MOTOR SPEED
-        #text, okPressed = QInputDialog.getText(self, "Motor velocity","Velocity (deg / s) : ", QLineEdit.Normal, "")
-        #MotorPI.vel(text)
-
-#        MotorPI.ref()
         #######################################################
         ## SEARCH FOR BOUNDARIES
 
@@ -645,49 +595,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
     def update_ini(self):
         """Method called each time the timer clocks"""
-        try:
-            [secu,ori,F,P] = read_arduino()    #Method to save current value of load and pressure
-        except:
-            print("read step1 problem")
+        
+        self.connectionCall()
 
 
-
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
-
-
-# def ini():
-#     def myExitHandler():
-#         """Function that run when the window is stopped"""
-#         print("lolllllll")
-#         try:
-#             MotorPI.stop()
-#         except:
-#             pass
-#         if mainWin.timer_ini.isActive():
-#             mainWin.timer_ini.stop()    #Stop the timer
-#             print("Timer stopped")
-#
-# #######################################################
-#     #Set my window
-# #######################################################
-#
-#     app = QtWidgets.QApplication(sys.argv)
-#     app.aboutToQuit.connect(myExitHandler) # myExitHandler is a callable
-#
-#
-# #######################################################
-#     #Create the window object
-# #######################################################
-#
-#     mainWin = IniWindow()
-#     mainWin.show()
-#
-#     try:    #Catch the exceptions
-#         sys.exit( app.exec_() )
-#     except SystemExit:
-#         print("Window closed !")
-#
-#
-#     return mainWin.path, mainWin.disp

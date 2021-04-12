@@ -17,10 +17,10 @@ ino.timeout = 3
 
 #Find the port of the Arduino
 for i in serial.tools.list_ports.comports():
-    #print(i)
+    print(i)
     if str(i).split()[2].find('ttyACM') != -1:
         ino.port = str(i).split()[0]
-        print('Arduino port: '+ino.port)
+        print('Arduino port found: '+ino.port)
 
 
 
@@ -29,7 +29,7 @@ def findport():
         #print(i)
         if str(i).split()[2].find('ttyACM') != -1:
             ino.port = str(i).split()[0]
-            print('Arduino port: '+ino.port)
+            print('Arduino port found: '+ino.port)
 
 
 def CheckPort():
@@ -39,11 +39,11 @@ def CheckPort():
 
 
 def connect():
-    for i in serial.tools.list_ports.comports():
-        #print(i)
-        if str(i).split()[2].find('ttyACM') != -1:
-            ino.port = str(i).split()[0]
-            print('Arduino port: '+ino.port)
+    
+    if isconnected():
+        return
+    
+    findport()
     ino.close()
     ino.open()
 
@@ -53,7 +53,11 @@ def disconnect():
 
 
 def isconnected():
-    return ino.isOpen()
+    isconnected = False
+    for i in serial.tools.list_ports.comports():
+        if str(i).split()[2].find('ttyACM') != -1 and ino.isOpen():
+            isconnected = True
+    return isconnected
 
 
 

@@ -28,6 +28,11 @@ class Left_panel(object):
                 #Create all buttons
         #######################################################
 
+        #Test connection
+        self.btn_connect = QPushButton("Try connection",self)
+        self.btn_connect.clicked.connect(self.connectionCall)
+        self.btn_connect.setMaximumSize(150,200)
+
 
         self.button_positioning = QPushButton('Positioning finished =>', self)
         self.button_positioning.clicked.connect(self.clickMethod_positioning)
@@ -156,6 +161,28 @@ class Left_panel(object):
         #######################################################
                 # Creation labels
         #######################################################
+
+
+        self.label_connection = QLabel("Connections: ")
+        self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
+
+        self.pixmap_0 = QPixmap()
+        self.pixmap_0.load('ressources/nottick.png')
+        self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
+        self.pixmap_1 = QPixmap()
+        self.pixmap_1.load('ressources/tick.png')
+        self.pixmap_1 = self.pixmap_1.scaledToWidth(20)
+
+        self.label_ard = QLabel()
+        self.label_ard.setPixmap(self.pixmap_0)
+        self.label_ard.setAlignment(Qt.AlignLeft)
+
+        self.label_mot = QLabel()
+        self.label_mot.setPixmap(self.pixmap_0)
+
+        self.label_pum = QLabel()
+        self.label_pum.setPixmap(self.pixmap_0)
+        
 
         label_pressure_title = QLabel()
         label_pressure_title.setText("Pressure")
@@ -351,8 +378,39 @@ class Left_panel(object):
         panel_layout.addStretch()
         panel_layout.addLayout(panel_grid)
         panel_layout.addStretch()
+        
+        
+        
+        #-------------------------------------------
+        #Add the connection visuals to the panel
+        
+        ard_layout = QHBoxLayout()
+        ard_layout.addWidget(self.label_ard)
+        ard_layout.addWidget(QLabel('  Arduino'))
+        ard_layout.addStretch(1)
+
+        mot_layout = QHBoxLayout()
+        mot_layout.addWidget(self.label_mot)
+        mot_layout.addWidget(QLabel('  Motor PI'))
+        mot_layout.addStretch(1)
+
+        pum_layout = QHBoxLayout()
+        pum_layout.addWidget(self.label_pum)
+        pum_layout.addWidget(QLabel('  Seringe pump'))
+        pum_layout.addStretch(1)
+        
+        
+        panel_layout.addWidget(self.label_connection)
+        panel_layout.addLayout(ard_layout)
+        panel_layout.addLayout(mot_layout)
+        panel_layout.addLayout(pum_layout)
+        panel_layout.addWidget(self.btn_connect)
+        #-------------------------------------------
+
 
         self.panel_control_layout = panel_layout
+        
+        self.connectionCall()
 
 
 ###############################################
@@ -371,7 +429,41 @@ class Left_panel(object):
 #        QMessageBox.about(self, "Run the engine:", "The positioning is now finished.\n\nThe test phase will start, when you are ready clic on the white arrow")
 
 
+    def connectionCall(self):
+        """Function to connect to pump motor and arduino"""
+        
+        
+        try:
+            Arduino.connect()
+        except:
+            print("arduino connection problem")
+        if Arduino.isconnected():
+            self.label_ard.setPixmap(self.pixmap_1)
+        else:
+            self.label_ard.setPixmap(self.pixmap_0)
 
+        try:
+            Pump_seringe.connect()
+        except:
+            print("pump connection problem")
+        if Pump_seringe.isconnected():
+            self.label_pum.setPixmap(self.pixmap_1)
+        else:
+            self.label_pum.setPixmap(self.pixmap_0)
+
+        try:
+            MotorPI.connect()
+        except:
+            print("motor connection problem")
+
+        if MotorPI.isconnected():
+            self.label_mot.setPixmap(self.pixmap_1)
+        else:
+            self.label_mot.setPixmap(self.pixmap_0)
+            
+        #print('connection test')
+        
+            
     def test_phase(self):
         """Method to activate the test phase"""
 

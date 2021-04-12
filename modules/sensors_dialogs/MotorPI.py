@@ -24,8 +24,7 @@ for i in serial.tools.list_ports.comports():
     #print(i)
     if str(i).split()[2].find('US232') != -1:
         port = str(i).split()[0]
-        print('Motor port: '+port)
-#port = "/dev/ttyUSB0"
+        print('Motor port found: '+port)
 
 
 def findport():
@@ -33,30 +32,41 @@ def findport():
         #print(i)
         if str(i).split()[2].find('US232') != -1:
             port = str(i).split()[0]
-            print('Motor port: '+port)
+            print('Motor port found: '+port)
 
 
 
 def connect():
     """Function to connect the object with the computer"""
-    for i in serial.tools.list_ports.comports():
-        #print(i)
-        if str(i).split()[2].find('US232') != -1:
-            port = str(i).split()[0]
-            print('Motor port: '+port)
-
+    
+    if isconnected():
+        return
+    
+    try:
+        disconnect()
+    except:
+        pass
+    
+    findport()
 
     pi_device.ConnectRS232(comport=port, baudrate=115200) #Connection by RS232
     pi_device.SVO (pi_device.axes,1)     # Turn on servo control of axis first axes
-    print('connected: {}'.format(pi_device.qIDN().strip()))
-    print('\nConnection succeed !!')
+    #print('\nconnected: {}'.format(pi_device.qIDN().strip()))
+    print('Connection to motor succeed !!')
+    if isref() == False:
+        ref()
+    
 
 def disconnect():
     """Function to disconnect the device"""
     pi_device.CloseConnection()    #Close the connection with device
 
 def isconnected():
-    return pi_device.IsConnected()
+    isconnected = False
+    for i in serial.tools.list_ports.comports():
+        if str(i).split()[2].find('US232') != -1 and pi_device.IsConnected():
+            isconnected = True
+    return isconnected
 
 
 def ref():
@@ -70,9 +80,11 @@ def ref():
         print('Error: Axis has no reference')
         sys.exit("Error ref")
     else:
-        print('Reference set !')
+        print('Motor Reference set !')
 
-
+def isref():
+    return gcscommands.GCSCommands.qFRF(pi_device,pi_device.axes)[pi_device.axes[0]]
+    
 
 def vel(v):
     p = 5

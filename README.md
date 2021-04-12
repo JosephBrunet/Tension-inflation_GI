@@ -40,6 +40,11 @@ The project organisation is the following one:
 After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
 
 
+If you are on linux don't forget to add your user into dialout group for serial access with:
+$ sudo usermod -a -G dialout YOUR_USERNAME
+You can verify if your user is present in the dialout group by using the command:
+$ groups
+
 ### Step 1 : Initialisation
 
 

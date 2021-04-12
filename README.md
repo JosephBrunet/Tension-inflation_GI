@@ -44,7 +44,7 @@ If you are on linux don't forget to add your user into dialout group for serial 
 ```
 $ sudo usermod -a -G dialout YOUR_USERNAME
 ```
-You can verify if your user is present in the dialout group by using the command:
+You can verify if the user is present in the dialout group by using the command:
 ```
 $ groups
 ```

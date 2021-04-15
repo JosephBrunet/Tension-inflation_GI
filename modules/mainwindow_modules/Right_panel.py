@@ -481,7 +481,7 @@ class Right_panel(object):
 
         if radio_mode.text() == "Mode: Pressure":
             if radio_mode.isChecked() == True:
-                self.label_pressure_input.setText("Pressure (MPa):")    #Set the text in the label
+                self.label_pressure_input.setText("Pressure (mmHg):")    #Set the text in the label
                 self.PVmode = 'P'
 
                 print("Mode pressure is selected")

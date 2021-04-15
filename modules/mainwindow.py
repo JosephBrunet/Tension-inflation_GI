@@ -597,23 +597,16 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         ############################################################################
 
 
-        items = ["rad","long","circ"]
-        item, ok = QInputDialog.getItem(self, "Serial ports","Which serial port pump connected:", items, 0, False)
-
-        direction = item
-
-
-
         #Saving file
-        header ="\n"+str(direction)+"\nTime , Disp, Load , Pressure, Volume\n"
+        header ="Time , Disp, Load , Pressure, Volume\n"
 
         if self.input_sample.text():
-            msg = QMessageBox.question(self,"Sample name","Sample name: '"+ self.input_sample.text() + "' ?",
+            msg = QMessageBox.question(self,"Sample name","Are you sure to name the file: "+ self.input_sample.text() + " ?",
                                                QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if msg == QMessageBox.Yes:
                 self.file_save = self.input_sample.text()
-
-                if not os.path.exists(self.input_sample.text() + ".txt"):
+                                
+                if not os.path.exists(self.path + "/" + self.input_sample.text() + ".txt"):
                     self.file_save = self.input_sample.text()
                     with open(self.path + '/' + self.file_save + '.txt', 'a') as mon_fichier:     #Initialize the saving file
                         mon_fichier.write(self.file_save + header)

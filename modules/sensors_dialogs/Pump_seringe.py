@@ -205,6 +205,9 @@ def vol_clear():
 
 def run():
     """Start the pump"""
+    
+    setDirection('INF')
+    
     cmd = (str(pump)+'RUN\x0D').encode()
     ser.write(cmd)
 #    try:
@@ -212,6 +215,17 @@ def run():
 #        if '?' in output.decode(): print(cmd.decode().strip()+' from run_all not understood')
 #    except:
 #        print('function run pump= read failed')
+
+
+def run_reverse():
+    """Start the pump"""
+    
+    setDirection('WDR')
+    
+    cmd = (str(pump)+'RUN\x0D').encode()
+    ser.write(cmd)
+#    try:
+    output = ser.readline()
 
 
 def stop():

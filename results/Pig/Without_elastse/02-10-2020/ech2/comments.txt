@@ -1,7 +1,0 @@
-echantillon 2
-fissure transverse + del 1mm
-
-2h pression 100mmHg direct dans machine 
-sans elastase
-
-Pas de rupture / pourtant 2000mmHg

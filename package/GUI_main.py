@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Nov 12 14:24:18 2018
-
-@author: root
-"""
 
 import os, sys
 path = os.path.dirname(os.path.realpath(__file__))   # Find path of the python script file
@@ -24,13 +19,13 @@ from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColo
 import serial.tools.list_ports
 from serial import SerialException
 
-from modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from modules.sensors_dialogs import Pump_seringe   #Program to control the pump
-from modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from package.modules.sensors_dialogs import Pump_seringe   #Program to control the pump
+from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
 
 
-from modules.initialisation import IniWindow
-from modules.mainwindow import MainWindow
+from package.modules.initialisation import IniWindow
+from package.modules.mainwindow import MainWindow
 
 
 

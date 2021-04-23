@@ -100,5 +100,5 @@ The `Right Panel`: use to launch the tension-inflation test.
 ### Drivers required :
 
 * Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
-	* Folder `linux/` if linux os
+	* Folder linux if linux os
 	* .exe if Windows os

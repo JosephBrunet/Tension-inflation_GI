@@ -5,9 +5,9 @@ from PyQt5.QtCore import QSize, Qt, QRegExp, QThread, QThreadPool, QObject, pyqt
 import numpy as np    #For mathematics
 import time
 
-from modules.sensors_dialogs import MotorPI    #Program to control the axial motor
-from modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
 
 from simple_pid import PID
 

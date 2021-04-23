@@ -5,17 +5,16 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatus
 from PyQt5.QtCore import QSize, Qt, QRect, QRegExp, QThread, QThreadPool, QObject, pyqtSignal
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
 
-from modules.sensors_dialogs import MotorPI
-from modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from modules.sensors_dialogs import Pump_seringe    #Program to control the pump
-
 import serial
 from serial import SerialException
 import serial.tools.list_ports
 
 import time
 
-from modules.mainwindow_modules.Right_panel import CommandThread
+from package.modules.sensors_dialogs import MotorPI
+from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from package.modules.mainwindow_modules.Right_panel import CommandThread
 
 
 

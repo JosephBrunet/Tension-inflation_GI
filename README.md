@@ -94,12 +94,12 @@ The `Right Panel`: use to launch the tension-inflation test.
 * pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
 * pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
 * simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
-* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
+* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1INRb_eBf8cWNtcjj4KRNG3F7fMPyqX5B/view?usp=sharing)
 
 
 ### Drivers required :
 
-* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
+* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1INRb_eBf8cWNtcjj4KRNG3F7fMPyqX5B/view?usp=sharing)
 	* Folder linux if linux os
 	* .exe if Windows os
 * Driver RS485 (CP210x USB to UART Bridge VCP) - Instruction to install it below -

@@ -253,9 +253,12 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.setCentralWidget(centralWidget)
 
         self.show
+           
+        
+        # if not MotorPI.driverCheck():
+        #     QMessageBox.about(self, "Motor Driver", "Driver for motor PI are not installed on this computer")
         
         self.connectionCall()
-
 #######################################################
         # Def functions
 #######################################################

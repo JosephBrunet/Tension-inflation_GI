@@ -14,9 +14,10 @@ ser.timeout = .1
 #Find the port of the Pump
 for i in serial.tools.list_ports.comports():
     #print(i)
-    if str(i).split()[2].find('USB-Serial') != -1:
+    if str(i).split()[2].find('USB-Serial') != -1 or str(i).find('Prolific USB-to-Serial Comm Port') != -1:
         ser.port = str(i).split()[0]
         print('Pump port found: '+ser.port)
+        break
 
 pump = 0
 
@@ -25,7 +26,7 @@ pump = 0
 def findport():
     for i in serial.tools.list_ports.comports():
         #print(i)
-        if str(i).split()[2].find('USB-Serial') != -1:
+        if str(i).split()[2].find('USB-Serial') != -1 or str(i).find('Prolific USB-to-Serial Comm Port') != -1:
             ser.port = str(i).split()[0]
             print('Pump port found: '+ser.port)
          
@@ -36,13 +37,14 @@ def connect():
         return
     
     findport()
+    ser.close()
     ser.open()    #We open the port
 
 
 def isconnected():
     isconnected = False
     for i in serial.tools.list_ports.comports():
-        if str(i).split()[2].find('USB-Serial') != -1 and ser.is_open:
+        if (str(i).split()[2].find('USB-Serial') != -1 or str(i).find('Prolific USB-to-Serial Comm Port') != -1) and ser.is_open:
             isconnected= True  
     return isconnected
 

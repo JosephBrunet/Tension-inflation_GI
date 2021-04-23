@@ -94,33 +94,11 @@ The `Right Panel`: use to launch the tension-inflation test.
 * pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
 * pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
 * simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
-* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1INRb_eBf8cWNtcjj4KRNG3F7fMPyqX5B/view?usp=sharing)
+* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
 
 
 ### Drivers required :
 
-* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1INRb_eBf8cWNtcjj4KRNG3F7fMPyqX5B/view?usp=sharing)
+* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
 	* Folder linux if linux os
 	* .exe if Windows os
-* Driver RS485 (CP210x USB to UART Bridge VCP) - Instruction to install it below -
-
----
-
-Command to install the RS485 drivers
-
-Window:
-https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
-
-Ubuntu:
-.../Software&Drivers/Linux_3.x.x_4.x.x_VCP_Driver_Source/
-or
-https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
-
-Then follow these commands
-```
-$ cd .../Software&Drivers/Linux_3.x.x_4.x.x_VCP_Driver_Source/ # change directory to the cp210x folder, adjust name if necessary
-$ make #compile the source code
-$ sudo cp cp210x.ko /lib/modules/"$(uname -r)"/kernel/drivers/usb/serial/ # copy the file to the system area
-$ sudo modprobe usbserial # load this kernel module
-$ sudo modprobe cp210x # load this kernel module
-```

@@ -10,12 +10,11 @@ from pipython import gcscommands
 import serial
 import serial.tools.list_ports
 
+import logging
+from io import StringIO
+
 
 pi_device = GCSDevice ('C-863.11')       #Create object
-
-#Vis
-p = 5 #pas (mm)
-
 
 
 
@@ -25,6 +24,28 @@ for i in serial.tools.list_ports.comports():
     if str(i).split()[2].find('US232') != -1:
         port = str(i).split()[0]
         print('Motor port found: '+port)
+        break
+    if str(i).find('USB Serial Port') != -1:
+        port = str(i).split()[0][-1]
+        print('Motor port found: '+port)
+        break
+
+
+
+
+# def driverCheck():
+#     log_stream = StringIO()    
+#     logging.basicConfig(stream=log_stream, level=logging.INFO)
+    
+#     GCSDevice ('C-863.11')  
+
+#     log = log_stream.getvalue()
+#     print(log)
+#     flag = True
+#     if log.find("no GCSTranslator") != -1:
+#         flag = False
+#     return flag
+
 
 
 def findport():
@@ -33,6 +54,11 @@ def findport():
         if str(i).split()[2].find('US232') != -1:
             port = str(i).split()[0]
             print('Motor port found: '+port)
+            break
+        if str(i).find('USB Serial Port') != -1:
+            port = str(i).split()[0][-1]
+            print('Motor port found: '+port)
+            break
 
 
 
@@ -55,7 +81,7 @@ def connect():
     print('Connection to motor succeed !!')
     if isref() == False:
         ref()
-    
+
 
 def disconnect():
     """Function to disconnect the device"""
@@ -64,8 +90,9 @@ def disconnect():
 def isconnected():
     isconnected = False
     for i in serial.tools.list_ports.comports():
-        if str(i).split()[2].find('US232') != -1 and pi_device.IsConnected():
+        if (str(i).split()[2].find('US232') != -1 or str(i).find('USB Serial Port') != -1) and pi_device.IsConnected():
             isconnected = True
+            break
     return isconnected
 
 
@@ -87,7 +114,7 @@ def isref():
     
 
 def vel(v):
-    p = 5
+    p = 5  #Vis
     v_deg = (v /60)*(360 / p)
     pi_device.VEL(pi_device.axes[0],values= v)     #Set the velocity
 
@@ -105,7 +132,7 @@ def move(L):
     # L = (p * deg)/360
 
     # 4 mm/ tr selon Nico
-    p = 5
+    p = 5 #Vis
     deg = - 360 * L / p    #Calcul du nombre de degrés
     pi_device.MOV (pi_device.axes, deg)     # Command first axis to position deg
 
@@ -125,7 +152,7 @@ def move_rel(L):
     # L = (p * deg)/360
 
     # 4 mm/ tr selon Nico
-    p = 5
+    p = 5  #Vis
     deg = - 360 * L / p    #Calcul du nombre de degrés
     pi_device.MVR (pi_device.axes, deg)     # Command first axis to position deg
 
@@ -136,6 +163,7 @@ def move_rel(L):
 
 def motor_pos():
     """Return the position of the motor"""
+    p = 5 #Vis
     pos = - pi_device.qPOS(pi_device.axes)['1'] * p / 360             # Query current position of first axis
     return pos
 
@@ -149,3 +177,4 @@ def stop():
     except:
         pass
     #pi_device.HLT(pi_device.axes) #Halt the motion of given 'axes' smoothly.
+

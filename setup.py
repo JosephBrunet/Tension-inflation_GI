@@ -10,7 +10,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
 
-setup(name='funniest',
+setup(name='tension-inflation',
       version='1.0.0',
       description='Software controlling the tension-inflation device',
       long_description=long_description,  # Optional
@@ -20,7 +20,10 @@ setup(name='funniest',
       author_email='jo.brunet73@gmail.com',
       license='MIT',
       packages=find_packages(where='package'), 
-      python_requires='>=3.5, <4',
+      package_dir={
+          '': 'package',
+      },
+      python_requires='>=3',
       install_requires=['pyqt','pyserial','pyqtgraph','simple-pid'],
       entry_points={  # Optional
         'console_scripts': [

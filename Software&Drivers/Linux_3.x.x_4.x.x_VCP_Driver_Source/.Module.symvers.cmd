@@ -1,1 +1,0 @@
-cmd_/home/jo/Téléchargements/Linux/Module.symvers := sed 's/ko$$/o/' /home/jo/Téléchargements/Linux/modules.order | scripts/mod/modpost -m -a   -o /home/jo/Téléchargements/Linux/Module.symvers -e -i Module.symvers   -T -

@@ -9,12 +9,27 @@ import serial
 from serial import SerialException
 import serial.tools.list_ports
 
+import sys
+import os
 import time
 
-from package.modules.sensors_dialogs import MotorPI
-from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
-from package.modules.mainwindow_modules.Right_panel import CommandThread
+from tension_inflation.modules.sensors_dialogs import MotorPI
+from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from tension_inflation.modules.mainwindow_modules.Right_panel import CommandThread
+
+
+#To attribute path if pyinstaller is used
+def resource_path(relative_path):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relative_path)
+     return os.path.join(os.path.abspath("."), relative_path)
+
+
+
+
+
+
 
 
 
@@ -160,16 +175,18 @@ class Left_panel(object):
         #######################################################
                 # Creation labels
         #######################################################
-
-
+        self.label_dir = QLabel("Results directory: ")
+        self.label_dir.setFont(QFont("Arial",10,QFont.Bold))
+        
+        self.label_dir.setFont(QFont("Arial",10,QFont.Bold))
         self.label_connection = QLabel("Connections: ")
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
         self.pixmap_0 = QPixmap()
-        self.pixmap_0.load('ressources/nottick.png')
+        self.pixmap_0.load(resource_path('resources/nottick.png'))
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
         self.pixmap_1 = QPixmap()
-        self.pixmap_1.load('ressources/tick.png')
+        self.pixmap_1.load(resource_path('resources/tick.png'))
         self.pixmap_1 = self.pixmap_1.scaledToWidth(20)
 
         self.label_ard = QLabel()
@@ -383,6 +400,11 @@ class Left_panel(object):
         #-------------------------------------------
         #Add the connection visuals to the panel
         
+        dir_layout = QHBoxLayout()
+        dir_layout.addWidget(self.label_dir)
+        dir_layout.addWidget(QLabel(self.path+"/"))
+        dir_layout.addStretch(1)
+        
         ard_layout = QHBoxLayout()
         ard_layout.addWidget(self.label_ard)
         ard_layout.addWidget(QLabel('  Arduino'))
@@ -398,7 +420,7 @@ class Left_panel(object):
         pum_layout.addWidget(QLabel('  Seringe pump'))
         pum_layout.addStretch(1)
         
-        
+        panel_layout.addLayout(dir_layout)
         panel_layout.addWidget(self.label_connection)
         panel_layout.addLayout(ard_layout)
         panel_layout.addLayout(mot_layout)

@@ -15,19 +15,27 @@ from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColo
 import serial.tools.list_ports
 from serial import SerialException
 
-from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
-from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
 
 
-from package.modules.mainwindow_modules.Left_panel import *
-from package.modules.mainwindow_modules.Right_panel import *
-from package.modules.mainwindow_modules.CommandThread import CommandThread
+from tension_inflation.modules.mainwindow_modules.Left_panel import *
+from tension_inflation.modules.mainwindow_modules.Right_panel import *
+from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread
 
 from simple_pid import PID
 
 import numpy as np    #For mathematics
 import pyqtgraph as pg    #Library to plot graph with pyqt
+
+
+#To attribute path if pyinstaller is used
+def resource_path(relative_path):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relative_path)
+     return os.path.join(os.path.abspath("."), relative_path)
+
 
 
 ##############################################################################################################
@@ -659,7 +667,9 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.label_state.setText(" Running ")     #Show the runing state
         self.label_state.setStyleSheet("background-color: green;")    #Put the background color in green
-        self.inibutton.setIcon(QIcon('ressources/button_start_push.png'))   #Change the button's icon by the ressources
+        self.inibutton.setIcon(QIcon(resource_path('resources/button_start_push.png')))   #Change the button's icon by the resources
+
+
 
         self.time_ini = time.time()     #Save the start time
         self.time_ini_graph  = time.time()     #Save the start time
@@ -726,8 +736,8 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.running = False
         self.pump_run = False
-        self.button_pause.setIcon(QIcon('ressources/button_pause.png'))
-        self.inibutton.setIcon(QIcon('ressources/button_start_push.png'))   #Change the button's icon by the ressources
+        self.button_pause.setIcon(QIcon('resources/button_pause.png'))
+        self.inibutton.setIcon(QIcon('resources/button_start_push.png'))   #Change the button's icon by the resources
         self.positioning_phase()
 
         self.label_state.setText(" Stopped ")

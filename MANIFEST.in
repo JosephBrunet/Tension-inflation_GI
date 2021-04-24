@@ -1,4 +1,4 @@
-recursive-include ressources *
-recursive-include Arduino-script *
+include tension_inflation/resources/*.png
+include tension_inflation/Arduino-script/*.ino
 include LICENSE.txt
 include README.md

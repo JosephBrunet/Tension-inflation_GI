@@ -1,29 +1,30 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Sep  5 13:52:53 2018
-
-@author: joseph.brunet
-"""
-
 import os
 import os.path
 import time
 import sys
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
-    QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox, QFrame, QSizePolicy, QInputDialog, QGroupBox, QRadioButton,
-    QFileDialog, QProgressBar, QDesktopWidget)
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
 
 import serial.tools.list_ports
 from serial import SerialException
 
-from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
-from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
-from package.modules.mainwindow_modules.CommandThread import CommandThread
+from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread
+
+
+
+
+#To attribute path if pyinstaller is used
+def resource_path(relative_path):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relative_path)
+     return os.path.join(os.path.abspath("."), relative_path)
+
 
 
 
@@ -85,7 +86,8 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.move(qtRectangle.topLeft())
 
         self.path = os.getcwd()+'/results'   #Path where the result will be printed
-
+        if self.path.find("tmp")!=-1:
+            self.path = os.path.expanduser("~/Desktop")+"/results_tensionInflation"
 
 
 
@@ -167,10 +169,10 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
         self.pixmap_0 = QPixmap()
-        self.pixmap_0.load('ressources/nottick.png')
+        self.pixmap_0.load(resource_path('resources/nottick.png'))
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
         self.pixmap_1 = QPixmap()
-        self.pixmap_1.load('ressources/tick.png')
+        self.pixmap_1.load(resource_path('resources/tick.png'))
         self.pixmap_1 = self.pixmap_1.scaledToWidth(20)
 
         self.label_ard = QLabel()
@@ -196,6 +198,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         dir_layout = QHBoxLayout()
         dir_layout.addWidget(self.label_dir)
         dir_layout.addWidget(QLabel(self.path+"/"))
+        dir_layout.addStretch(1)
 
         ard_layout = QHBoxLayout()
         ard_layout.addWidget(self.label_ard)

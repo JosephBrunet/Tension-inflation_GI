@@ -9,15 +9,29 @@ from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColo
 import numpy as np    #For mathematics
 import pyqtgraph as pg    #Library to plot graph with pyqt
 import time
+import sys
+import os
 
-from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
-from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from package.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
+from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
 
-from package.modules.mainwindow_modules.CommandThread import CommandThread
+from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread
 
 
 from simple_pid import PID
+
+
+#To attribute path if pyinstaller is used
+def resource_path(relative_path):
+     if hasattr(sys, '_MEIPASS'):
+         return os.path.join(sys._MEIPASS, relative_path)
+     return os.path.join(os.path.abspath("."), relative_path)
+
+
+
+
+
 
 
 
@@ -49,7 +63,7 @@ class Right_panel(object):
         self.inibutton.clicked.connect(self.clickMethodIni)    #Method to connect the click on the button with the function clickMethodIni
         #self.inibutton.resize(100,32)
         self.inibutton.setStatusTip('Run the acquisition')    #When cursor on the button the statue bar show the message
-        self.inibutton.setIcon(QIcon('ressources/button_start_push.png'))   #Change the button's icon by the ressources
+        self.inibutton.setIcon(QIcon(resource_path('resources/button_start_push.png')))   #Change the button's icon by the resources
         self.inibutton.setIconSize(QSize(30,30))   #Change the size of the icon
 
 
@@ -58,7 +72,7 @@ class Right_panel(object):
         # Add button for stop
         self.stopbutton = QPushButton(self)
         self.stopbutton.clicked.connect(self.clickMethodStop)
-        self.stopbutton.setIcon(QIcon('ressources/button_stop.png'))
+        self.stopbutton.setIcon(QIcon(resource_path('resources/button_stop.png')))
         #self.stopbutton.resize(100,32)
         self.stopbutton.setStatusTip('Stop the acquisition')
         self.stopbutton.setIconSize(QSize(30,30))
@@ -358,14 +372,14 @@ class Right_panel(object):
 
         self.button_pause = QPushButton( self)
         self.button_pause.clicked.connect(self.clickMethodPause)
-        self.button_pause.setIcon(QIcon('ressources/button_pause.png'))
+        self.button_pause.setIcon(QIcon(resource_path('resources/button_pause.png')))
         self.button_pause.setStatusTip('Stop the test')
         self.button_pause.setFixedSize( 60, 50 )
         self.button_pause.setIconSize(QSize(40, 40))
 
         self.button_restart = QPushButton( self)
         self.button_restart.clicked.connect(self.clickMethodRestart)
-        self.button_restart.setIcon(QIcon('ressources/button_restart.png'))
+        self.button_restart.setIcon(QIcon(resource_path('resources/button_restart.png')))
         self.button_restart.setStatusTip('Restart the test')
         self.button_restart.setFixedSize( 60, 50 )
         self.button_restart.setIconSize(QSize(40, 40))
@@ -515,7 +529,7 @@ class Right_panel(object):
         """pause"""
         self.pause = True
         self.pump_run = False
-        self.button_pause.setIcon(QIcon('ressources/button_pause_push.png'))
+        self.button_pause.setIcon(QIcon(resource_path('resources/button_pause_push.png')))
         self.CommandThread.stop()
         self.pause_phase()
 
@@ -529,7 +543,7 @@ class Right_panel(object):
     def clickMethodRestart(self):
         """restart"""
 
-        self.button_pause.setIcon(QIcon('ressources/button_pause.png'))
+        self.button_pause.setIcon(QIcon(resource_path('resources/button_pause.png')))
         if not self.pause:
             return
 

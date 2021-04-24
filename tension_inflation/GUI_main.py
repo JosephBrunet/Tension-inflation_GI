@@ -2,16 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import os, sys
-path = os.path.dirname(os.path.realpath(__file__))   # Find path of the python script file
-os.chdir(path)  #Change current directory
+#path = os.path.dirname(os.path.realpath(__file__))   # Find path of the python script file
+#os.chdir(path)  #Change current directory
 
 
 #sys.path.append(os.path.join(os.path.dirname(__file__), "modules/gui"))
 
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
-    QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox, QFrame, QSizePolicy, QInputDialog, QGroupBox, QRadioButton)
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
 
@@ -19,16 +18,13 @@ from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColo
 import serial.tools.list_ports
 from serial import SerialException
 
-from package.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from package.modules.sensors_dialogs import Pump_seringe   #Program to control the pump
-from package.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
+from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
+from tension_inflation.modules.sensors_dialogs import Pump_seringe   #Program to control the pump
+from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
 
 
-from package.modules.initialisation import IniWindow
-from package.modules.mainwindow import MainWindow
-
-
-
+from tension_inflation.modules.initialisation import IniWindow
+from tension_inflation.modules.mainwindow import MainWindow
 
 
 

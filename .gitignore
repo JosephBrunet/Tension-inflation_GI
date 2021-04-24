@@ -1,6 +1,7 @@
 # general things to ignore
 build/
 dist/
+.tox/
 *.egg-info/
 *.egg
 *.py[cod]

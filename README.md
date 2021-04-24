@@ -11,7 +11,7 @@
 		- [Drivers required](#drivers-required)
 	- [Installation](###installation)
 1. [Software guide](#software-guide)
-	- [Step 1 : Initialisation](#step-1--Initialisation)
+	- [Step 1 : Initialisation](#step-1--initialisation)
 	- [Step 2 : Main window](#step-2--main-window)
 1. [Contact](#-contact)
 

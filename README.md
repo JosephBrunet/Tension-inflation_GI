@@ -109,7 +109,7 @@ After launching the app (and if all the python packages and drivers were install
 
 The initialisation will be launched (code in `initialisation.py`). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
 
-![Ini step](./ressources/Ini_step.png)
+![Ini step](./resources/Ini_step.png)
 
 
 
@@ -125,7 +125,7 @@ The initialisation will be launched (code in `initialisation.py`). The objective
 
 After the initialisation step, the main window is launched (code in `mainwindow.py`). This window will appear:
 
-![Main step](./ressources/Main_step.png)
+![Main step](./resources/Main_step.png)
 
 The main window is divided into two panel: the `Left Panel` and the `Right Panel`.
 

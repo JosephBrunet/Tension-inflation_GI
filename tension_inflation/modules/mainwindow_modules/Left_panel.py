@@ -42,11 +42,6 @@ class Left_panel(object):
                 #Create all buttons
         #######################################################
 
-        #Test connection
-        self.btn_connect = QPushButton("Try connection",self)
-        self.btn_connect.clicked.connect(self.connectionCall)
-        self.btn_connect.setMaximumSize(150,200)
-
 
         self.button_positioning = QPushButton('Positioning finished =>', self)
         self.button_positioning.clicked.connect(self.clickMethod_positioning)
@@ -425,7 +420,6 @@ class Left_panel(object):
         panel_layout.addLayout(ard_layout)
         panel_layout.addLayout(mot_layout)
         panel_layout.addLayout(pum_layout)
-        panel_layout.addWidget(self.btn_connect)
         #-------------------------------------------
 
 

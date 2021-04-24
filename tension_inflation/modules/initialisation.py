@@ -86,7 +86,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.move(qtRectangle.topLeft())
 
         self.path = os.getcwd()+'/results'   #Path where the result will be printed
-        if self.path.find("tmp")!=-1:
+        if self.path.find("tmp")!=-1 or self.path.find("Temp")!=-1:
             self.path = os.path.expanduser("~/Desktop")+"/results_tensionInflation"
 
 

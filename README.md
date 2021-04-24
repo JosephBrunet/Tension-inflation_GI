@@ -1,6 +1,6 @@
 # Tension-inflation graphical interface
 
-[Custom foo description](#"Project organisation")
+[Custom foo description](#project-organisation)
 
 
 

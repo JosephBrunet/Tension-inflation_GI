@@ -4,7 +4,7 @@
 
 
 
-
+[Contact](#contact)
 
 
 
@@ -12,7 +12,6 @@
 
 Work done by Joseph Brunet (Ecole des Mines de Saint-Etienne, CIS)
 
-Mail: jo.brunet73@gmail.com
 
 ***
 
@@ -109,3 +108,9 @@ The `Right Panel`: use to launch the tension-inflation test.
 * Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
 	* Folder linux if linux os
 	* .exe if Windows os
+
+
+# Contact
+
+Joseph Brunet - Mail: jo.brunet73@gmail.com
+

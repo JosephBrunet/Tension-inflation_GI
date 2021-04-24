@@ -1,0 +1,5 @@
+PyQt5
+pyserial
+pyqtgraph
+simple-pid
+PIPython

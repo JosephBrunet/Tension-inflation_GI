@@ -94,11 +94,11 @@ The `Right Panel`: use to launch the tension-inflation test.
 * pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
 * pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
 * simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
-* PIPython             ==>  (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing, try first version 'PIPython-1.3.2.24', if it does not work try version 'PIPython-1.3.4.17')
+* PIPython             ==>  (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
 
 
 ### Drivers required :
 
-* Driver PI C663 (install from the PI cd - https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing)
+* Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
 	* Folder linux if linux os
 	* .exe if Windows os

@@ -3,22 +3,19 @@
 ---
 
 
-1. [About The Project](##about-the-project)
-	- [Project organisation](###project-organisation)
-1. [Getting Started](##getting-started)
-	- [Requirements](###requirements)
-		- [Python packages required](####python-packages-required)
-		- [Drivers required](####drivers-required)
+1. [About The Project](#about-the-project)
+	- [Project organisation](#project-organisation)
+1. [Getting Started](#getting-started)
+	- [Requirements](#requirements)
+		- [Python packages required](#python-packages-required)
+		- [Drivers required](#drivers-required)
 	- [Installation](###installation)
-1. [Software guide](##software-guide)
-	- [Step 1 : Initialisation](###step-1-:-Initialisation)
-	- [Step 2 : Main window](###step-2-:-main-window)
-1. [Contact](##-contact)
+1. [Software guide](#software-guide)
+	- [Step 1 : Initialisation](#step-1-Initialisation)
+	- [Step 2 : Main window](#step-2-main-window)
+1. [Contact](#-contact)
 
 
-[Contact](##-contact)
-
-[Contact](##contact)
 
 ---
 

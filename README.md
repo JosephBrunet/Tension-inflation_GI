@@ -13,12 +13,12 @@
 ---
 
 
-# About The Project:
+## About The Project:
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
 
 
-## Project organisation:
+### Project organisation:
 
 The project organisation is the following one:
 
@@ -42,13 +42,14 @@ The project organisation is the following one:
 
 
 ---
-# Getting Started:
+## Getting Started:
+
+The package is written in python and it is based on the PyQt framework.
 
 
+### Requirements
 
-## Requirements
-
-### Python packages required :
+#### Python packages required :
 
 * pyqt==5.9.2                 ==>  (https://anaconda.org/anaconda/pyqt)
 * pyserial==3.5             ==>  (https://anaconda.org/anaconda/pyserial)
@@ -57,7 +58,7 @@ The project organisation is the following one:
 * PIPython==2.5.0.1             ==>  (https://pypi.org/project/PIPython/)
 
 
-### Drivers required :
+#### Drivers required :
 
 * Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
 	* Folder 'linux' if linux os
@@ -65,20 +66,20 @@ The project organisation is the following one:
 
 
 
-## Installation
+### Installation
 
 Three methods to run the app:
 
 1. Two standelone files were created (one for Windows and one for Linux) to avoid installing all the dependencies and execute the application directly.
 
-2. Write in terminal: 'python sertup.py install'
+2. Write in terminal: 'python sertup.py install' and run 'entry_point.py'.
 
-3. Install all dependencies and launch 'entry_point.py'
+3. Install all dependencies and launch 'entry_point.py'.
 
 Just one of these methods is needed.
 
 
-## Software steps:
+### Software steps:
 
 
 After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
@@ -93,7 +94,7 @@ You can verify if the user is present in the dialout group by using the command:
 $ groups
 ```
 
-### Step 1 : Initialisation
+#### Step 1 : Initialisation
 
 
 The initialisation will be launched (code in `initialisation.py`). The objectives of this step are to connected the Arduino, the Pump, and the Motor, and to let the motor find its position. This window will appear:
@@ -109,7 +110,7 @@ The initialisation will be launched (code in `initialisation.py`). The objective
 
 
 
-### Step 2 : Main window
+#### Step 2 : Main window
 
 
 The main window will be launched (code in `mainwindow.py`). This window will appear:
@@ -132,7 +133,7 @@ The `Right Panel`: use to launch the tension-inflation test.
 
 
 
-# Contact
+## Contact
 
 Joseph Brunet - Mail: jo.brunet73@gmail.com
 

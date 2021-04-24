@@ -4,18 +4,19 @@
 
 
 
+
+
 [Contact](#contact)
 
 
 
 ---
 
-Work done by Joseph Brunet (Ecole des Mines de Saint-Etienne, CIS)
 
-
-***
+# About The Project:
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
+
 
 ## Project organisation:
 
@@ -36,9 +37,46 @@ The project organisation is the following one:
 │   ├── initialisation.py            # GUI of the step 1
 │   └── mainwindow.py                # GUI of the step 2 composed in right and left panels
 ├── ressources                       # Folder with the images
-├── results                          # Folder containing the output from the software
-└── Software&Drivers                 # Folder with the packages to install
+└── results                          # Folder containing the output from the software
 ```
+
+
+---
+# Getting Started:
+
+
+
+## Requirements
+
+### Python packages required :
+
+* pyqt==5.9.2                 ==>  (https://anaconda.org/anaconda/pyqt)
+* pyserial==3.5             ==>  (https://anaconda.org/anaconda/pyserial)
+* pyqtgraph==0.11.0            ==>  (https://anaconda.org/anaconda/pyqtgraph)
+* simple-pid==0.2.4           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
+* PIPython==2.5.0.1             ==>  (https://pypi.org/project/PIPython/)
+
+
+### Drivers required :
+
+* Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
+	* Folder 'linux' if linux os
+	* '.exe' if Windows os
+
+
+
+## Installation
+
+Three methods to run the app:
+
+1. Two standelone files were created (one for Windows and one for Linux) to avoid installing all the dependencies and execute the application directly.
+
+2. Write in terminal: 'python sertup.py install'
+
+3. Install all dependencies and launch 'entry_point.py'
+
+Just one of these methods is needed.
+
 
 ## Software steps:
 
@@ -92,22 +130,6 @@ The `Right Panel`: use to launch the tension-inflation test.
 
 ---
 
-## Requirements:
-
-### Python packages required :
-
-* pyqt                 ==>  (https://anaconda.org/anaconda/pyqt)
-* pyserial             ==>  (https://anaconda.org/anaconda/pyserial)
-* pyqtgraph            ==>  (https://anaconda.org/anaconda/pyqtgraph)
-* simple-pid           ==>  (https://anaconda.org/esrf-bcu/simple-pid)
-* PIPython             ==>  (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
-
-
-### Drivers required :
-
-* Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
-	* Folder linux if linux os
-	* .exe if Windows os
 
 
 # Contact

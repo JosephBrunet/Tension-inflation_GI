@@ -61,8 +61,8 @@ The package is written in python and it is based on the PyQt framework.
 #### Drivers required :
 
 * Driver PI C663 (install from the PI cd - 'http://update.pi-portal.ws/down.php?link=http://syst13.synserver.de/PIUpdateFinder/PI_C-990_CD1_V_1_0_0_6.zip&name=PI_C-990_CD1_V_1_0_0_6.zip&id=6'  or 'https://drive.google.com/file/d/1h9WOYUCOherfxR1k2YsRopm3UeD3EEEO/view?usp=sharing')
-	* Folder 'linux' if linux os
-	* '.exe' if Windows os
+	* Folder `linux` if linux os
+	* `.exe` if Windows os
 
 
 
@@ -72,9 +72,9 @@ Three methods to run the app:
 
 1. Two standelone files were created (one for Windows and one for Linux) to avoid installing all the dependencies and execute the application directly.
 
-2. Write in terminal: 'python sertup.py install' and run 'entry_point.py'.
+2. Write in terminal: `python sertup.py install` and run `entry_point.py`.
 
-3. Install all dependencies and launch 'entry_point.py'.
+3. Install all dependencies and launch `entry_point.py`.
 
 Just one of these methods is needed.
 
@@ -82,7 +82,7 @@ Just one of these methods is needed.
 ### Software steps:
 
 
-After executing `GUI_main.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
+After executing `entry_point.py` (and if all the python packages and drivers were installed on the computer), the GUI steps will be:
 
 
 If you are on linux don't forget to add your user into dialout group for serial access with:

@@ -30,7 +30,7 @@ This graphical interface was developped to be used with the tension-inflation de
 The project organisation is the following one:
 
 ```
-── GUI_main.py                       #Main script to execute to start the GUI
+── GUI_main.py                       #Main script controlling the GUI
 ├── Arduino_script                   #Folder with the Arduino script uploaded on the card (written in C++)
 ├── modules
 │   ├── mainwindow_modules

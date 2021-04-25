@@ -24,6 +24,8 @@
 
 This graphical interface was developped to be used with the tension-inflation device based at Ecole des Mines de Saint-Etienne (France).
 
+To start the app, run the script `entry_point_py`.
+
 
 ### Project organisation
 

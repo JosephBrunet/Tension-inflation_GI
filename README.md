@@ -9,7 +9,7 @@
 	- [Requirements](#requirements)
 		- [Python packages required](#python-packages-required)
 		- [Drivers required](#drivers-required)
-	- [Installation](###installation)
+	- [Installation and launching](#installation-and-launching)
 1. [Software guide](#software-guide)
 	- [Step 1 : Initialisation](#step-1--initialisation)
 	- [Step 2 : Main window](#step-2--main-window)
@@ -83,7 +83,7 @@ $ groups
 
 
 
-### Installation
+### Installation and launching
 
 Three methods to run the app:
 
@@ -94,7 +94,6 @@ Three methods to run the app:
 3. Install all dependencies and launch `entry_point.py`.
 
 Just one of these methods is needed.
-
 
 ---
 

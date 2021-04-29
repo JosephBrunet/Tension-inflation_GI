@@ -100,7 +100,6 @@ def main():
     app.setPalette(palette)
     app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
 
-    #Set font for the whole application
 
     controller = Controller()
     controller.show_IniWindow()

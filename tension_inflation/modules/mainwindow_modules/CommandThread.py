@@ -226,7 +226,7 @@ class CommandThread(QThread):
                     self.update_thread.emit()
                     # compute new ouput from the PID according to the systems current value
                     output = pid(self.P)
-                    print(output)
+                    print("Pump flow rate: "+str(output))
 
                     if time.time() - start > 0.5:
                         # feed the PID output to the system and get its current value
@@ -237,12 +237,7 @@ class CommandThread(QThread):
                         time.sleep(0.01)
                 time.sleep(0.01)
                 Pump_seringe.stop()
-                print("flowrate")
-                print(self.flowRate)
                 Pump_seringe.setFlowRate(self.flowRate)
-                time.sleep(0.02)
-
-                print(Pump_seringe.getFlowRate())
 
             #MANAGE PRESSURE SUPERIOR TO TARGET
             elif self.P > self.PV_target:

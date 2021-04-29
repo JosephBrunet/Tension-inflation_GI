@@ -111,13 +111,13 @@ class Left_panel(object):
         self.button_disp_0_P.setIconSize(QSize(100,100))
         self.button_disp_0_P.setMaximumSize(100,200)    #Set the minimum size of the button
 
-        self.button_motor_stop = QPushButton('Stop', self)
+        self.button_motor_stop = QPushButton('Stop Motor', self)
         self.button_motor_stop.clicked.connect(self.clickMethod_motorStop)
         self.button_motor_stop.setStatusTip('Stop the motor')
         self.button_motor_stop.setIconSize(QSize(100,100))
         self.button_motor_stop.setMaximumSize(100,200)    #Set the minimum size of the button
 
-        self.button_pump_stop = QPushButton('Stop', self)
+        self.button_pump_stop = QPushButton('Stop Pump', self)
         self.button_pump_stop.clicked.connect(self.clickMethod_pumpStop)
         self.button_pump_stop.setStatusTip('Stop the pump')
         self.button_pump_stop.setIconSize(QSize(100,100))

@@ -90,9 +90,9 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
         #Define PATH for the result file
         self.path = os.getcwd()+'/results'   #Path where the result will be printed
-        Path(self.path).mkdir(parents=True, exist_ok=True)
         if self.path.find("tmp")!=-1 or self.path.find("Temp")!=-1:
             self.path = os.path.expanduser("~/Desktop")+"/results_tensionInflation"
+        Path(self.path).mkdir(parents=True, exist_ok=True)  #Create a folder if there is not
 
 
 
@@ -159,6 +159,8 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.ini_start = False
         self.btn = QPushButton("Start initialisation",self)
         self.btn.clicked.connect(self.ini_processCall)
+
+        print(self.btn.font().family())
 
         self.btn2 = QPushButton("Pass the initialisation",self)
         self.btn2.clicked.connect(self.passCall)

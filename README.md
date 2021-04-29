@@ -45,7 +45,7 @@ The project organisation is the following one:
 │   │   └── PumpWM.py                # Script for the dialog with the Watson Marlow pump (not useful)
 │   ├── initialisation.py            # GUI of the step 1
 │   └── mainwindow.py                # GUI of the step 2 composed in right and left panels
-├── ressources                       # Folder with the images
+├── resources                       # Folder with the images
 └── results                          # Folder containing the output from the software
 ```
 

@@ -12,7 +12,7 @@ import serial.tools.list_ports
 
 pi_device = GCSDevice ('C-863.11')       #Create object
 
-
+p = 5
 
 #Find the port of the Motor
 for i in serial.tools.list_ports.comports():
@@ -94,9 +94,8 @@ def isref():
     
 
 def vel(v):
-    p = 5  #Vis
     v_deg = (v /60)*(360 / p)
-    pi_device.VEL(pi_device.axes[0],values= v)     #Set the velocity
+    pi_device.VEL(pi_device.axes[0],values= v_deg)     #Set the velocity
 
 def vel_value():
     return pi_device.qVEL(pi_device.axes)['1']
@@ -112,7 +111,6 @@ def move(L):
     # L = (p * deg)/360
 
     # 4 mm/ tr selon Nico
-    p = 5 #Vis
     deg = - 360 * L / p    #Calcul du nombre de degrés
     pi_device.MOV (pi_device.axes, deg)     # Command first axis to position deg
 
@@ -132,7 +130,6 @@ def move_rel(L):
     # L = (p * deg)/360
 
     # 4 mm/ tr selon Nico
-    p = 5  #Vis
     deg = - 360 * L / p    #Calcul du nombre de degrés
     pi_device.MVR (pi_device.axes, deg)     # Command first axis to position deg
 

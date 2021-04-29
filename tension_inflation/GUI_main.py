@@ -72,10 +72,6 @@ def main():
         except:
             pass
 
-    path_dir = os.path.abspath(__file__)
-    path_dir=os.path.dirname(path_dir)
-    os.chdir( path_dir )
-
 
     app = QtWidgets.QApplication(sys.argv)
     app.aboutToQuit.connect(myExitHandler) # myExitHandler is a callable

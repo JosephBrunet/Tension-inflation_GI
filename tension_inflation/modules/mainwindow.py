@@ -205,17 +205,13 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         #Def port definition
         fileMenu = menuBar.addMenu('&File')
 
-        changeFileAction = QAction('&TEST', self)
-        changeFileAction.triggered.connect(self.Test_call)    #Call the fonction when this action is selected
-        fileMenu.addAction(changeFileAction)    #Put the new action in the item
-
         changeFileAction = QAction('&Change working directory', self)
         changeFileAction.setStatusTip('Change working directory')
         changeFileAction.triggered.connect(self.ChangeDir)    #Call the fonction when this action is selected
         fileMenu.addAction(changeFileAction)    #Put the new action in the item
 
-        changeFileAction = QAction('&Initialisation', self)
-        changeFileAction.setStatusTip('Initialisation')
+        changeFileAction = QAction('&Return to Initialisation', self)
+        changeFileAction.setStatusTip('Return to Initialisation')
         changeFileAction.triggered.connect(self.Ini)    #Call the fonction when this action is selected
         fileMenu.addAction(changeFileAction)    #Put the new action in the item
 
@@ -227,25 +223,6 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         ShowPortAction.setStatusTip('Show Serial Ports')
         ShowPortAction.triggered.connect(self.ShowPortCall)    #Call the fonction when this action is selected
         portMenu.addAction(ShowPortAction)    #Put the new action in the item
-
-        chooseMenu = portMenu.addMenu('&Choose Serial Port')
-        # Create new action (for menubar)
-        PumpPortAction = QAction('&Watson-Marlow Pump', self)
-        PumpPortAction.setStatusTip('Define the serial ports of the PI motor')
-        PumpPortAction.triggered.connect(self.PumpPortCall)    #Call the fonction when this action is selected
-        chooseMenu.addAction(PumpPortAction)    #Put the new action in the item
-
-
-        InoPortAction = QAction('&Arduino', self)
-        InoPortAction.setStatusTip('Define the serial port of the arduino')
-        InoPortAction.triggered.connect(self.InoPortCall)    #Call the fonction when this action is selected
-        chooseMenu.addAction(InoPortAction)    #Put the new action in the item
-
-        TestConnectionAction = QAction('&Test connections', self)
-        TestConnectionAction.setStatusTip('')
-        TestConnectionAction.triggered.connect(self.TestConnectionCall)    #Call the fonction when this action is selected
-        portMenu.addAction(TestConnectionAction)    #Put the new action in the item
-
 
 
 #############
@@ -392,17 +369,6 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 #######################################################
         # Def functions
 #######################################################
-    def Test_call(self):
-
-        print('start test')
-
-        self.Radio_graphOFF.setChecked(True)
-        self.graph_state(self.Radio_graphOFF)
-        print('end test')
-
-
-
-
 
 
     def ChangeDir(self):
@@ -431,6 +397,10 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         if Pump_seringe.ser.port is None:
             Pump_seringe.ser.port = "Not Define"
         ports = ports + "Pump:   " + Pump_seringe.ser.port + "\n"
+
+        if MotorPI.port is None:
+            MotorPI.port = "Not Define"
+        ports = ports + "Pump:   " + MotorPI.port + "\n"
 
         if Arduino.ino.port is None:
             Arduino.ino.port = "Not Define"
@@ -538,7 +508,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
 
     def helpCall(self):
-        QMessageBox.about(self, "Tip", "Call me if you have questions :\nJoseph Brunet\njoseph.brunet@emse.fr")
+        QMessageBox.about(self, "Tip", "Call me if you have questions :\nJoseph Brunet\njo.brunet73@gmail.com")
 
 
 
@@ -616,7 +586,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
                                 
                 if not os.path.exists(self.path + "/" + self.input_sample.text() + ".txt"):
                     self.file_save = self.input_sample.text()
-                    with open(self.path + '/' + self.file_save + '.txt', 'a') as mon_fichier:     #Initialize the saving file
+                    with open(self.path + '/' + self.file_save + '.txt', 'w') as mon_fichier:     #Initialize the saving file
                         mon_fichier.write(self.file_save + header)
 
                 else:
@@ -639,7 +609,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
                 if okPressed and text != '':
                     if not os.path.exists(text + ".txt"):
                         self.file_save = text
-                        with open(self.path + '/' + self.file_save + '.txt', 'a') as mon_fichier:     #Initialize the saving file
+                        with open(self.path + '/' + self.file_save + '.txt', 'w') as mon_fichier:     #Initialize the saving file
                             mon_fichier.write(self.file_save + "\nNew run\nTime , Disp, Load , Pressure, Volume\n")
                         break
 
@@ -667,7 +637,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.label_state.setText(" Running ")     #Show the runing state
         self.label_state.setStyleSheet("background-color: green;")    #Put the background color in green
-        self.inibutton.setIcon(QIcon(resource_path('resources/button_start_push.png')))   #Change the button's icon by the resources
+        self.inibutton.setIcon(QIcon(resource_path('tension_inflation/resources/button_start_push.png')))   #Change the button's icon by the resources
 
 
 
@@ -736,8 +706,8 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.running = False
         self.pump_run = False
-        self.button_pause.setIcon(QIcon('resources/button_pause.png'))
-        self.inibutton.setIcon(QIcon('resources/button_start_push.png'))   #Change the button's icon by the resources
+        self.button_pause.setIcon(QIcon('tension_inflation/resources/button_pause.png'))
+        self.inibutton.setIcon(QIcon('tension_inflation/resources/button_start_push.png'))   #Change the button's icon by the resources
         self.positioning_phase()
 
         self.label_state.setText(" Stopped ")

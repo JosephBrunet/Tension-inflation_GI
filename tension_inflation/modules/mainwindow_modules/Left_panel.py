@@ -178,10 +178,10 @@ class Left_panel(object):
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
         self.pixmap_0 = QPixmap()
-        self.pixmap_0.load(resource_path('resources/nottick.png'))
+        self.pixmap_0.load(resource_path('tension_inflation/resources/nottick.png'))
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
         self.pixmap_1 = QPixmap()
-        self.pixmap_1.load(resource_path('resources/tick.png'))
+        self.pixmap_1.load(resource_path('tension_inflation/resources/tick.png'))
         self.pixmap_1 = self.pixmap_1.scaledToWidth(20)
 
         self.label_ard = QLabel()

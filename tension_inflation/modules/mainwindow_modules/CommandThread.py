@@ -91,14 +91,14 @@ class CommandThread(QThread):
 
             while self.F == False:
                 time.sleep(0.1)
-            while self.F < self.dF_target*0.90  or self.F > self.dF_target*1.10 :
+            while self.F < self.dF_target*0.9  or self.F > self.dF_target*1.1 :
                 self.update_thread.emit()
-                if self.F < self.dF_target*0.90:
+                if self.F < self.dF_target*0.9:
                     MotorPI.move_rel(0.2)
                     while MotorPI.ismoving():
                         time.sleep(0.1)
 
-                if self.F > self.dF_target*1.10:
+                if self.F > self.dF_target*1.1:
                     MotorPI.move_rel(-0.2)
 
                     while MotorPI.ismoving():

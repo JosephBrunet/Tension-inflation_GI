@@ -2,9 +2,14 @@ import os
 import os.path
 import time
 import sys
+from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtWidgets import *
+
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
+    QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox, QFrame, QSizePolicy, QInputDialog, QGroupBox, QRadioButton, 
+    QFileDialog,QDesktopWidget, QProgressBar)
+
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
 
@@ -24,9 +29,6 @@ def resource_path(relative_path):
      if hasattr(sys, '_MEIPASS'):
          return os.path.join(sys._MEIPASS, relative_path)
      return os.path.join(os.path.abspath("."), relative_path)
-
-
-
 
 
 ##############################################################################################################
@@ -85,7 +87,10 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         qtRectangle.moveCenter(centerPoint)
         self.move(qtRectangle.topLeft())
 
+
+        #Define PATH for the result file
         self.path = os.getcwd()+'/results'   #Path where the result will be printed
+        Path(self.path).mkdir(parents=True, exist_ok=True)
         if self.path.find("tmp")!=-1 or self.path.find("Temp")!=-1:
             self.path = os.path.expanduser("~/Desktop")+"/results_tensionInflation"
 
@@ -97,7 +102,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
         self.timer_ini = QtCore.QTimer()    #Set the timer
         self.timer_ini.timeout.connect(self.update_ini)   #Each time the timer clock, this method is called
-        self.timer_ini.start(200)    #Start the timer with clocking of 200 ms
+        self.timer_ini.start(300)    #Start the timer with clocking of 200 ms
 
 
         self.progress = QProgressBar(self)
@@ -169,10 +174,10 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
         self.pixmap_0 = QPixmap()
-        self.pixmap_0.load(resource_path('resources/nottick.png'))
+        self.pixmap_0.load(resource_path('tension_inflation/resources/nottick.png'))
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
         self.pixmap_1 = QPixmap()
-        self.pixmap_1.load(resource_path('resources/tick.png'))
+        self.pixmap_1.load(resource_path('tension_inflation/resources/tick.png'))
         self.pixmap_1 = self.pixmap_1.scaledToWidth(20)
 
         self.label_ard = QLabel()
@@ -479,9 +484,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
             self.ini_start = False
             return
 
-        self.timer_ini.start(100)
-
-
         #######################################################
         ## SEARCH FOR BOUNDARIES
 
@@ -491,7 +493,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.repaint()
         #First boundary
 
-        MotorPI.vel(75)
+        MotorPI.vel(84)
 
 
         MotorPI.ref()
@@ -577,7 +579,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.progress.setValue(self.completed)
         self.label.setText("Finish")
 
-        MotorPI.vel(20)
+        MotorPI.vel(30)
 
         self.timer_ini.stop()
 

@@ -97,8 +97,11 @@ def vel(v):
     v_deg = (v /60)*(360 / p)
     pi_device.VEL(pi_device.axes[0],values= v_deg)     #Set the velocity
 
+
 def vel_value():
-    return pi_device.qVEL(pi_device.axes)['1']
+    vel_deg = pi_device.qVEL(pi_device.axes)['1']
+    vel = vel_deg * 60 * (p / 360)
+    return vel
 
 
 def move(L):

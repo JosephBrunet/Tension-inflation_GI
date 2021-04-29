@@ -667,7 +667,6 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
         self.CommandThread = CommandThread(disp_load_target, vol_pressure_target, cycleF, cycleP, self.PVmode, self.FDmode)
         self.CommandThread.signal_end.connect(self.test_end)
         self.CommandThread.update_thread.connect(self.update_value)
-        self.CommandThread.signal_pump_run.connect(self.pump_state)
         self.CommandThread.start()
 
         self.running_phase()
@@ -676,9 +675,6 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
     def update_value(self):
         self.CommandThread.update_value(self.F,self.P)
-
-    def pump_state(self, test):
-        self.pump_run = test
 
 
     def test_end(self):
@@ -779,7 +775,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
             print("Problem MotorPI.motor_pos() in update()")
 
         self.label_pressure_display.setText(f"{self.P:.3f} mmHg")   #Display the value
-        self.label_volume_display.setText(str(round(self.vol,4)) + " ml")   #Display the value
+        #self.label_volume_display.setText(str(round(self.vol,4)) + " ml")   #Display the value
         self.label_load_display.setText(f"{self.F:.3f} N")   #Display the value
 
 

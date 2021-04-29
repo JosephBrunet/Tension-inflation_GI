@@ -493,7 +493,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.repaint()
         #First boundary
 
-        MotorPI.vel(84)
+        MotorPI.vel(55)
 
 
         MotorPI.ref()
@@ -579,7 +579,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.progress.setValue(self.completed)
         self.label.setText("Finish")
 
-        MotorPI.vel(30)
+        MotorPI.vel(20)
 
         self.timer_ini.stop()
 

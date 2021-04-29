@@ -246,9 +246,11 @@ def dose(vol):
     #connect()
     vol = float(vol)
     if vol < 0:
-        setDirection('WDR')
+        set_vol(abs(vol))
+        run_reverse()
 
     else:
-        setDirection('INF')
-    set_vol(abs(vol))
-    run()
+        set_vol(abs(vol))
+        run()
+    
+    

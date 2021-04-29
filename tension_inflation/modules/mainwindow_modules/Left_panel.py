@@ -77,49 +77,49 @@ class Left_panel(object):
 
         self.button_vol_more = QPushButton('+', self)
         self.button_vol_more.clicked.connect(self.clickMethod_volMore)
-        self.button_vol_more.setStatusTip('Tare the pressure sensor')
+        self.button_vol_more.setStatusTip('Add volume')
         self.button_vol_more.setIconSize(QSize(100,100))
         self.button_vol_more.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_vol_less = QPushButton('-', self)
         self.button_vol_less.clicked.connect(self.clickMethod_volLess)
-        self.button_vol_less.setStatusTip('Tare the pressure sensor')
+        self.button_vol_less.setStatusTip('Remove volume')
         self.button_vol_less.setIconSize(QSize(100,100))
         self.button_vol_less.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_disp_more = QPushButton('+', self)
         self.button_disp_more.clicked.connect(self.clickMethod_dispMore)
-        self.button_disp_more.setStatusTip('Tare the pressure sensor')
+        self.button_disp_more.setStatusTip('Add displacement')
         self.button_disp_more.setIconSize(QSize(100,100))
         self.button_disp_more.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_disp_less = QPushButton('-', self)
         self.button_disp_less.clicked.connect(self.clickMethod_dispLess)
-        self.button_disp_less.setStatusTip('Tare the pressure sensor')
+        self.button_disp_less.setStatusTip('Remove displacement')
         self.button_disp_less.setIconSize(QSize(100,100))
         self.button_disp_less.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_disp_0_d = QPushButton('Return to 0', self)
         self.button_disp_0_d.clicked.connect(self.clickMethod_disp0)
-        self.button_disp_0_d.setStatusTip('')
+        self.button_disp_0_d.setStatusTip('Return to 0 mmHg pressure')
         self.button_disp_0_d.setIconSize(QSize(100,100))
         self.button_disp_0_d.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_disp_0_P = QPushButton('Return to 0', self)
         self.button_disp_0_P.clicked.connect(self.clickMethod_pres0)
-        self.button_disp_0_P.setStatusTip('')
+        self.button_disp_0_P.setStatusTip('Return to 0 mm position in displacement')
         self.button_disp_0_P.setIconSize(QSize(100,100))
         self.button_disp_0_P.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_motor_stop = QPushButton('Stop', self)
         self.button_motor_stop.clicked.connect(self.clickMethod_motorStop)
-        self.button_motor_stop.setStatusTip('')
+        self.button_motor_stop.setStatusTip('Stop the motor')
         self.button_motor_stop.setIconSize(QSize(100,100))
         self.button_motor_stop.setMaximumSize(100,200)    #Set the minimum size of the button
 
         self.button_pump_stop = QPushButton('Stop', self)
         self.button_pump_stop.clicked.connect(self.clickMethod_pumpStop)
-        self.button_pump_stop.setStatusTip('')
+        self.button_pump_stop.setStatusTip('Stop the pump')
         self.button_pump_stop.setIconSize(QSize(100,100))
         self.button_pump_stop.setMaximumSize(100,200)    #Set the minimum size of the button
 
@@ -222,7 +222,7 @@ class Left_panel(object):
         self.label_pressure_display.setFont(QFont("Arial",16,))
 
         self.label_volume_display = QLabel()
-        self.label_volume_display.setText("Connecting")
+        self.label_volume_display.setText("Unavailable")
         self.label_volume_display.setAlignment(Qt.AlignCenter)
         self.label_volume_display.setFont(QFont("Arial",16,))
 
@@ -699,18 +699,15 @@ class Left_panel(object):
             self.CommandThread = CommandThread(0, 10, 0, 0, 'P', 'D')
             self.CommandThread.signal_end.connect(self.test_end)
             self.CommandThread.update_thread.connect(self.update_value)
-            self.CommandThread.signal_pump_run.connect(self.pump_state)
             self.CommandThread.start()
 
 
 
 
     def clickMethod_motorStop(self):
-        """Method to """
         MotorPI.stop()
 
     def clickMethod_pumpStop(self):
-        """Method to """
         Pump_seringe.stop()
 
 

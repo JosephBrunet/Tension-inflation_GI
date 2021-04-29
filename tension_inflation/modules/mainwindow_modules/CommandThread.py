@@ -19,8 +19,6 @@ class CommandThread(QThread):
 
     signal_end = pyqtSignal()
     update_thread = QtCore.pyqtSignal()
-    signal_pump_run = QtCore.pyqtSignal(bool)
-
     def __init__(self, dF_target, PV_target, NcycleF, NcycleP, PVmode, FDmode):
         super(QThread, self).__init__()
         self.pause = False
@@ -127,31 +125,25 @@ class CommandThread(QThread):
                 cycle=0
                 while cycle < self.NcycleP:
 
-                    self.signal_pump_run.emit(True)
                     Pump_seringe.dose(self.PV_target)
 
                     waitingTime = abs(float(self.PV_target) / float(Pump_seringe.getFlowRate()))*60 + 2
                     print(str(waitingTime))
-                    self.signal_pump_run.emit(False)
                     time.sleep(waitingTime)
 
-                    self.signal_pump_run.emit(True)
                     Pump_seringe.dose(-self.PV_target)
 
                     waitingTime = abs(float(self.PV_target) / float(Pump_seringe.getFlowRate()))*60 + 2
                     print(str(waitingTime))
-                    self.signal_pump_run.emit(False)
                     time.sleep(waitingTime)
 
                     cycle = cycle +1
 
 
-            self.signal_pump_run.emit(True)
             Pump_seringe.dose(self.PV_target)
 
             waitingTime = abs(float(self.PV_target) / float(Pump_seringe.getFlowRate()))*60 + 1
             print(str(waitingTime))
-            self.signal_pump_run.emit(False)
             time.sleep(waitingTime)
 
 
@@ -161,45 +153,33 @@ class CommandThread(QThread):
         ## MODE PRESSURE CONSTANT
 
 
+        
+
         elif self.PVmode == 'P' and not self.PV_target == '':
+
+            Pump_seringe.set_vol(500) #Set target volume of the pump to not stop the run inadvertently
 
             if self.P > self.PV_target:
                 self.NcycleP=0
 
             self.update_thread.emit()
-            time.sleep(0.1)
             #Cycles first
             if self.NcycleP != 0:
                 cycle=0
                 while cycle < self.NcycleP:
-
-
                     #Cycle montant
                     pump_running = False
                     flag= False
                     while self.pause == False and flag == False:
-
                         self.update_thread.emit()
                         if self.P > self.PV_target:
-
-                            self.signal_pump_run.emit(True)
-                            time.sleep(0.02)
                             Pump_seringe.stop()
                             pump_running = False
-                            self.signal_pump_run.emit(False)
                             flag = True
 
-
                         if pump_running == False and flag == False:
-                            self.signal_pump_run.emit(True)
-                            time.sleep(0.05)
                             Pump_seringe.run()
                             pump_running = True
-                            time.sleep(0.02)
-                            self.signal_pump_run.emit(False)
-                            time.sleep(0.05)
-
-                        self.update_thread.emit()
                         time.sleep(0.05)
 
                     time.sleep(0.05)
@@ -208,29 +188,15 @@ class CommandThread(QThread):
                     pump_running = False
                     flag= False
                     while self.pause == False and flag == False:
-
                         self.update_thread.emit()
-                        if self.P <= 10:
-
-                            self.signal_pump_run.emit(True)
-                            time.sleep(0.02)
+                        if self.P <= 1:
                             Pump_seringe.stop()
                             pump_running = False
-                            self.signal_pump_run.emit(False)
                             flag = True
 
-
                         if pump_running == False and flag == False:
-                            self.signal_pump_run.emit(True)
-                            time.sleep(0.02)
                             Pump_seringe.run_reverse()
-                            #Pump_seringe.dose(-80)
                             pump_running = True
-                            time.sleep(0.02)
-                            self.signal_pump_run.emit(False)
-                            time.sleep(0.02)
-
-                        self.update_thread.emit()
                         time.sleep(0.05)
 
                     cycle = cycle +1
@@ -241,16 +207,12 @@ class CommandThread(QThread):
 
 
 
-
-
             #MANAGE PRESSION INFERIOR TO TARGET
             if self.P < self.PV_target:
 
-
+                Pump_seringe.run()
                 while self.pause == False and self.P < self.PV_target*0.98:
                     self.update_thread.emit()
-                    Pump_seringe.setDirection('INF')
-                    Pump_seringe.run()
                     time.sleep(0.1)
                 Pump_seringe.stop()
 
@@ -272,11 +234,15 @@ class CommandThread(QThread):
                         Pump_seringe.setFlowRate(output)
                         Pump_seringe.run()
                         start = time.time()
-                    time.sleep(0.05)
+                        time.sleep(0.01)
                 time.sleep(0.01)
+                Pump_seringe.stop()
+                print("flowrate")
+                print(self.flowRate)
                 Pump_seringe.setFlowRate(self.flowRate)
-                time.sleep(0.01)
+                time.sleep(0.02)
 
+                print(Pump_seringe.getFlowRate())
 
             #MANAGE PRESSURE SUPERIOR TO TARGET
             elif self.P > self.PV_target:
@@ -289,28 +255,18 @@ class CommandThread(QThread):
                     self.update_thread.emit()
                     if self.P < self.PV_target:
 
-                        self.signal_pump_run.emit(True)
-                        time.sleep(0.02)
                         Pump_seringe.stop()
                         pump_running = False
-                        self.signal_pump_run.emit(False)
                         flag = True
 
 
                     if self.P > self.PV_target and pump_running == False:
-                        self.signal_pump_run.emit(True)
-                        time.sleep(0.02)
                         Pump_seringe.run_reverse()
                         pump_running = True
-                        time.sleep(0.02)
-                        self.signal_pump_run.emit(False)
-                        time.sleep(0.02)
 
                     self.update_thread.emit()
                     time.sleep(0.05)
 
-
-        self.signal_pump_run.emit(False)
         print("QThread terminated")
         self.signal_end.emit()
 

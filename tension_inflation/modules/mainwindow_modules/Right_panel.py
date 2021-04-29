@@ -573,7 +573,6 @@ class Right_panel(object):
         self.CommandThread = CommandThread(disp_load_target, vol_pressure_target, cycleF, cycleP, self.PVmode, self.FDmode)
         self.CommandThread.signal_end.connect(self.test_end)
         self.CommandThread.update_thread.connect(self.update_value)
-        self.CommandThread.signal_pump_run.connect(self.pump_state)
         self.CommandThread.start()
 
         self.pause = False

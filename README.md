@@ -93,7 +93,7 @@ Three methods to run the app:
 
 2. Write in terminal: `python sertup.py install` and run `entry_point.py`.
 
-3. Install all dependencies and launch `entry_point.py`.
+3. Install all dependencies and launch the script entry_point.py by typing `python entry_point.py`.
 
 Just one of these methods is needed.
 

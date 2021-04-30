@@ -1,3 +1,7 @@
+"""
+Left part of the test windows
+"""
+
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
@@ -50,7 +54,7 @@ class Left_panel(object):
         self.button_positioning.setMaximumSize(250,200)    #Set the minimum size of the button
         self.button_positioning.setFont(QFont("Arial",14,QFont.Bold))
 
-        # Add button for taring load
+        # Add button for taring 
         tarebutton_load = QPushButton('Tare', self)
         tarebutton_load.clicked.connect(self.clickMethodTare_load)
         tarebutton_load.setStatusTip('Tare the load sensor')
@@ -260,9 +264,9 @@ class Left_panel(object):
         label_step_disp.setFont(QFont("Arial",16,))
 
 
-#######################################################
-        # Creation of the different composent of the window (Layout !!)
-#######################################################
+        #######################################################
+                # Creation of the different composent of the window (Layout !!)
+        #######################################################
 
 
         #Creation of a line of separation
@@ -711,9 +715,9 @@ class Left_panel(object):
         Pump_seringe.stop()
 
 
-###############################################
-#Function for radio buttons
-###############################################
+    ###############################################
+    #Function for radio buttons
+    ###############################################
 
     def radio_vol_step(self, radio_value):
         if radio_value.text() == "1":

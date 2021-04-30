@@ -1,3 +1,8 @@
+"""
+Right part of the test windows
+"""
+
+
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
@@ -11,6 +16,7 @@ import pyqtgraph as pg    #Library to plot graph with pyqt
 import time
 import sys
 import os
+from simple_pid import PID
 
 from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
 from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
@@ -19,7 +25,6 @@ from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program t
 from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread
 
 
-from simple_pid import PID
 
 
 #To attribute path if pyinstaller is used
@@ -38,8 +43,8 @@ def resource_path(relative_path):
 class Right_panel(object):
     def setup_right_panel(self, parent=None):
 
-        self.PVmode = 'P'
-        self.FDmode = 'D'
+        self.PVmode = 'P'  #Control modes (P for pressure / V for volume)
+        self.FDmode = 'D'  #Control modes (F for load / D for displacement)
 
         # Creation of the separetor object
         sepTestH = [QFrame() for i in range(7)]
@@ -87,10 +92,6 @@ class Right_panel(object):
         self.label_state.setStyleSheet("background-color: red;")
 
 
-
-
-
-
         #Widget with user input for changing load
         self.input_sample = QLineEdit()   #Creation of the widget
         self.input_sample.setMaxLength(30)     #Number of characters accepted
@@ -130,12 +131,9 @@ class Right_panel(object):
 
 
 
-
-########################################################################################
-########################################################################################
-#######################################################
-        # Choose of the commande mode
-#######################################################
+        #######################################################
+                # Choose of the commande mode
+        #######################################################
 
 
         #Create label: running or stopped state
@@ -203,13 +201,9 @@ class Right_panel(object):
 
 
 
-
-
-########################################################################################
-########################################################################################
-#######################################################
-        # Choose the pre-loading
-#######################################################
+        #######################################################
+                # Choose the pre-loading
+        #######################################################
 
         label_preloading = QLabel()    #Creation of the widget
         label_preloading.setText(" Pre-conditioning: ")    #Set the text in the label
@@ -233,7 +227,6 @@ class Right_panel(object):
 
         self.label_cyclF = QLabel("Cycle Motor:", self)
         self.label_cyclF.setFont(QFont("Arial",12,QFont.Bold))
-        #self.lab.setGeometry(QRect(70, 80, 300, 300)) #(x, y, width, height)
 
         #Layout input label + input number
         form_cycleF = QFormLayout()     #Creation of the layout form
@@ -249,7 +242,6 @@ class Right_panel(object):
         self.input_cycleP.setMaxLength(2)
         self.input_cycleP.setAlignment(Qt.AlignRight)
         self.input_cycleP.setFont(QFont("Arial",12))
-        #input_vol_pressure.setCursor(QCursor(Qt.ArrowCursor))
         self.input_cycleP.setStyleSheet("QLineEdit{background: white;}")
 
         self.input_cycleP.palette = QPalette()
@@ -259,7 +251,6 @@ class Right_panel(object):
 
         self.label_cyclP = QLabel("Cycle Pump:", self)
         self.label_cyclP.setFont(QFont("Arial",12,QFont.Bold))
-        #self.lab.setGeometry(QRect(70, 80, 300, 300)) #(x, y, width, height)
 
         #Layout input label + input number
         form_cycleP = QFormLayout()     #Creation of the layout form
@@ -296,7 +287,6 @@ class Right_panel(object):
         self.input_disp_load.setMaxLength(10)     #Number of characters accepted
         self.input_disp_load.setAlignment(Qt.AlignRight)
         self.input_disp_load.setFont(QFont("Arial",12))
-        #self.input_disp_load.setCursor(QCursor(Qt.ArrowCursor))    #If you want a different cursor shape when on the widget
         self.input_disp_load.setStyleSheet("QLineEdit{background: white;}")    #Background color of the widget
 
         #hChange the writing color from write to black because we set the background write (I like when it's beautiful)
@@ -308,7 +298,6 @@ class Right_panel(object):
         #Creation of the label attached to the QLineEdit
         self.label_load_input = QLabel("Disp (mm):", self)
         self.label_load_input.setFont(QFont("Arial",12,QFont.Bold))
-        #self.lab.setGeometry(QRect(70, 80, 300, 300)) #(x, y, width, height)
 
         #Put the QLineEdit and the label together (like a form)
         form_load = QFormLayout()     #Creation of the layout form
@@ -326,7 +315,6 @@ class Right_panel(object):
         self.input_vol_pressure.setMaxLength(10)
         self.input_vol_pressure.setAlignment(Qt.AlignRight)
         self.input_vol_pressure.setFont(QFont("Arial",12))
-        #input_vol_pressure.setCursor(QCursor(Qt.ArrowCursor))
         self.input_vol_pressure.setStyleSheet("QLineEdit{background: white;}")
 
         self.input_vol_pressure.palette = QPalette()
@@ -336,7 +324,6 @@ class Right_panel(object):
 
         self.label_pressure_input = QLabel("Pressure (mmHg):", self)
         self.label_pressure_input.setFont(QFont("Arial",12,QFont.Bold))
-        #self.lab.setGeometry(QRect(70, 80, 300, 300)) #(x, y, width, height)
 
         #Layout input label + input number
         form_pressure = QFormLayout()     #Creation of the layout form
@@ -366,9 +353,9 @@ class Right_panel(object):
 
 
 
-#######################################################
-        #Stop & restart
-#######################################################
+        #######################################################
+                #Stop & restart
+        #######################################################
 
         self.button_pause = QPushButton( self)
         self.button_pause.clicked.connect(self.clickMethodPause)
@@ -396,9 +383,9 @@ class Right_panel(object):
 
 
 
-#######################################################
-        #Graph definition
-#######################################################
+        #######################################################
+                #Graph definition
+        #######################################################
 
 
         # Button for clear the graphs
@@ -452,8 +439,8 @@ class Right_panel(object):
         graph_mode.addWidget(self.Radio_graphOFF)
         graph_mode.addWidget(self.clrGraphButton)
 
-#######################################################
-#######################################################
+        #######################################################
+        #######################################################
 
 
         self.panel_test_layout = QVBoxLayout()
@@ -480,7 +467,9 @@ class Right_panel(object):
 
 
 
+
     ###################################
+    #Functions !!
     ###################################
     #Change the mode of command the pump when push the radio button
 
@@ -593,5 +582,3 @@ class Right_panel(object):
             self.time_ini_graph = time.time()
             self.graphL.clear()
             self.graphR.clear()
-            #self.clear = True
-            #self.graphv.clear()

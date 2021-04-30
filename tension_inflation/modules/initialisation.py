@@ -5,11 +5,9 @@ import sys
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
-
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
     QVBoxLayout, QHBoxLayout, QSpacerItem, QMessageBox, QFrame, QSizePolicy, QInputDialog, QGroupBox, QRadioButton, 
     QFileDialog,QDesktopWidget, QProgressBar)
-
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon, QFont, QDoubleValidator, QPixmap, QPalette, QColor, QCursor
 
@@ -17,23 +15,18 @@ import serial.tools.list_ports
 from serial import SerialException
 
 from tension_inflation.modules.sensors_dialogs import Arduino    #Program created to connect / read... with the arduino microcontrol
-from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to control the pump
-from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to control the axial motor
-from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread
+from tension_inflation.modules.sensors_dialogs import Pump_seringe    #Program to communicate with the pump
+from tension_inflation.modules.sensors_dialogs import MotorPI    #Program to communicate with the axial motor
+from tension_inflation.modules.mainwindow_modules.CommandThread import CommandThread   #Thread controlling motor and pump
 
 
 
 
-#To attribute path if pyinstaller is used
 def resource_path(relative_path):
-     if hasattr(sys, '_MEIPASS'):
+    """To attribute path if pyinstaller is used"""
+    if hasattr(sys, '_MEIPASS'):
          return os.path.join(sys._MEIPASS, relative_path)
-     return os.path.join(os.path.abspath("."), relative_path)
-
-
-##############################################################################################################
-##############################################################################################################
-##############################################################################################################
+    return os.path.join(os.path.abspath("."), relative_path)
 
 
 def read_arduino():
@@ -41,7 +34,7 @@ def read_arduino():
     String code => "(secu,ori,load,pressure)"
     """
     try:
-        char = Arduino.read_ino()
+        char = Arduino.read_ino()   #Fonction to read the arduino
     except:
         print("Problem with arduino's sent values !")
     if char[0] == "(" and char[-1] == ")":   #Check the letter before value (to not take into account the partial value)
@@ -97,7 +90,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
 
 #######################################################
-        #Set the Timer and Bar
+        #Set the Timer and Progress Bar
 #######################################################
 
         self.timer_ini = QtCore.QTimer()    #Set the timer
@@ -116,7 +109,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         menuBar = self.menuBar()   #Creation of the menubar
 
 #############
-        #Def port definition
+        #Def changing directory definition
         fileMenu = menuBar.addMenu('&File')
 
         changeFileAction = QAction('&Change working directory', self)
@@ -133,25 +126,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         ShowPortAction.triggered.connect(self.ShowPortCall)    #Call the fonction when this action is selected
         portMenu.addAction(ShowPortAction)    #Put the new action in the item
 
-        chooseMenu = portMenu.addMenu('&Choose Serial Port')
-        # Create new action (for menubar)
-        InoPortAction = QAction('&Arduino', self)
-        InoPortAction.setStatusTip('Define the serial port of the arduino')
-        InoPortAction.triggered.connect(self.InoPortCall)    #Call the fonction when this action is selected
-        chooseMenu.addAction(InoPortAction)    #Put the new action in the item
-
-
-        MotorPortAction = QAction('&PI Motor', self)
-        MotorPortAction.setStatusTip('Define the serial port of the Motor')
-        MotorPortAction.triggered.connect(self.MotorPortCall)    #Call the fonction when this action is selected
-        chooseMenu.addAction(MotorPortAction)    #Put the new action in the item
-
-
-        PumpPortAction = QAction('&Watson-Marlow Pump', self)
-        PumpPortAction.setStatusTip('Define the serial ports of the PI motor')
-        PumpPortAction.triggered.connect(self.PumpPortCall)    #Call the fonction when this action is selected
-        chooseMenu.addAction(PumpPortAction)    #Put the new action in the item
-
 #######################################################
         #Create all buttons
 #######################################################
@@ -159,8 +133,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.ini_start = False
         self.btn = QPushButton("Start initialisation",self)
         self.btn.clicked.connect(self.ini_processCall)
-
-        print(self.btn.font().family())
 
         self.btn2 = QPushButton("Pass the initialisation",self)
         self.btn2.clicked.connect(self.passCall)
@@ -175,6 +147,8 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.label_connection = QLabel("Connections: ")
         self.label_connection.setFont(QFont("Arial",10,QFont.Bold))
 
+
+        #Images green or red for indicating the current connection
         self.pixmap_0 = QPixmap()
         self.pixmap_0.load(resource_path('tension_inflation/resources/nottick.png'))
         self.pixmap_0 = self.pixmap_0.scaledToWidth(20)
@@ -260,6 +234,12 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
            
   
         self.connectionCall()
+
+
+
+
+
+
 #######################################################
         # Def functions
 #######################################################
@@ -273,9 +253,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
 
     def connectionCall(self):
-        """Function to connect to pump motor and arduino"""
-        
-        
+        """Function to connect to pump, motor and arduino"""
         try:
             Arduino.connect()
         except:
@@ -309,17 +287,12 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
 
     def passCall(self):
-        """Function to change directory"""
-
-        #######################################################
-        ## CONNECTION WITH ARDUINO/PUMP/MOTOR
-
-        #######################################################
-        ## CONNECTION WITH ARDUINO/PUMP/MOTOR
-
-        self.connectionCall()
+        """Function to pass directly to the test window"""
 
 
+        self.connectionCall()  #Verify the connection
+
+        #Show a message with the current connection states
         msg = ""
         if Arduino.isconnected():
             msg += "Arduino: Connected\n"
@@ -336,7 +309,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         else:
             msg += "Motor: Not connected\n"
 
-
         msg = QMessageBox.question(self,"Continue ?",msg+"\n\nDo you want to continue ?",
                                                QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
         if msg == QMessageBox.No:
@@ -344,16 +316,15 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
 
         QMessageBox.about(self, "Acquisition", "Initialisation finished\n\nStart of the acquisition")
 
-        self.switch_window.emit(self.path)
 
-        self.close()
+
+        self.switch_window.emit(self.path)  #Send the signal to change window to test window
+        self.close()  #Close the initialisation window
 
 
     def ShowPortCall(self):
         """Function to show in a window the different ports open"""
         ports = ""
-
-
         if Arduino.ino.port is None:
             Arduino.ino.port = "Not Define"
         ports = ports +"Arduino:   " + Arduino.ino.port + "\n"
@@ -367,43 +338,6 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         ports = ports + "Pump:   " + Pump_seringe.ser.port + "\n"
 
         QMessageBox.about(self, "Serial ports:", ports)
-
-    def PumpPortCall(self):
-        """Function to change the ports of the Pump"""
-        ports = []
-        for i in serial.tools.list_ports.comports():
-            print(i)
-            ports.append(str(i).split()[0])
-        items = (ports)
-        item, ok = QInputDialog.getItem(self, "Serial ports","Which serial port pump connected:", items, 0, False)
-
-        if ok:
-            Pump_seringe.ser.port = item
-
-
-    def InoPortCall(self):
-        """Function to change the ports of the Arduino"""
-        ports = []
-        for i in serial.tools.list_ports.comports():
-            ports.append(str(i).split()[0])
-
-        items = (ports)
-        item, ok = QInputDialog.getItem(self, "Serial ports","Which serial port Arduino connected:", items, 0, False)
-
-        if ok:
-            Arduino.ino.port = item
-
-    def MotorPortCall(self):
-        """Function to change the ports of the Motor"""
-        ports = []
-        for i in serial.tools.list_ports.comports():
-            ports.append(str(i).split()[0])
-
-        items = (ports)
-        item, ok = QInputDialog.getItem(self, "Serial ports","Which serial port Arduino connected:", items, 0, False)
-
-        if ok:
-            MotorPI.port = item
 
 ####################
 

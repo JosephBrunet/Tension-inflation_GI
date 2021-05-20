@@ -546,7 +546,7 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 ###################################
 
 
-    def clickMethodIni(self):
+    def clickMethodAcquisition(self):
         """"Method to start the acquisition (thread and timer)"""
 
         ############
@@ -678,22 +678,11 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
 
     def test_end(self):
-        """Method to stop the acquisition"""
+        """Method launching when the acquisition is finished"""
 
         if not self.pause:
-
-            self.pause = True
-            self.CommandThread.stop()
-            self.pause_phase()
+            self.clickMethodPause()
             QMessageBox.about(self, "Ending", "Test finished\nWaiting for Stop or Restart button")
-#            self.running = False
-#            self.positioning_phase()
-#
-#            self.label_state.setText(" Stopped ")
-#            self.label_state.setStyleSheet("background-color: red;")
-#
-#            self.label_phase.setText("Phase: Positioning")
-#            #QMessageBox.about(self, "Test", "Test finished. Positionning phase started")
 
 
 
@@ -726,24 +715,11 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
 
 
-
-
-
-
-
-
-
-
-
     def on_job_done(self, generated_obj):
         try:
             [self.secu,self.ori,self.F,self.P] = generated_obj
         except:
             print("error on job done")
-
-    def on_jobVol_done(self, generated_obj_vol):
-        self.vol = generated_obj_vol
-
 
 
 

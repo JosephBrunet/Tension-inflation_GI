@@ -65,7 +65,7 @@ class Right_panel(object):
 
         # Button for initialisation
         self.inibutton = QPushButton(self)    #Creation of the widget
-        self.inibutton.clicked.connect(self.clickMethodIni)    #Method to connect the click on the button with the function clickMethodIni
+        self.inibutton.clicked.connect(self.clickMethodAcquisition)    #Method to connect the click on the button with the function clickMethodAcquisition
         #self.inibutton.resize(100,32)
         self.inibutton.setStatusTip('Run the acquisition')    #When cursor on the button the statue bar show the message
         self.inibutton.setIcon(QIcon(resource_path('tension_inflation/resources/button_start_push.png')))   #Change the button's icon by the resources

@@ -61,7 +61,7 @@ class CommandThread(QThread):
         self.F=F
         self.P=P
 
-    def DisplacementControl():
+    def DisplacementControl(self):
         #Cycles first
         if self.NcycleF != 0:
             cycle=0
@@ -86,7 +86,7 @@ class CommandThread(QThread):
             time.sleep(0.1)
     
 
-    def LoadControl():
+    def LoadControl(self):
         self.update_thread.emit()
 
         while self.F == False:
@@ -108,7 +108,7 @@ class CommandThread(QThread):
             time.sleep(0.5)
 
 
-    def VolumeControl():
+    def VolumeControl(self):
         #Cycles first
         if self.NcycleP != 0:
             cycle=0
@@ -137,7 +137,7 @@ class CommandThread(QThread):
 
 
 
-    def PressureControl():
+    def PressureControl(self):
 
         Pump_seringe.set_vol(500) #Set target volume of the pump to not stop the run inadvertently
 
@@ -258,10 +258,10 @@ class CommandThread(QThread):
         ######################################################################
 
         if self.FDmode == 'D' and not self.dF_target == '':
-            DisplacementControl()
+            self.DisplacementControl()
 
         elif self.FDmode == 'F' and not self.dF_target == '':
-            LoadControl()
+            self.LoadControl()
 
 
 
@@ -276,12 +276,12 @@ class CommandThread(QThread):
 
 
         if self.PVmode == 'V' and not self.PV_target == '':
-            VolumeControl()
+            self.VolumeControl()
 
 
         
         elif self.PVmode == 'P' and not self.PV_target == '': ## MODE PRESSURE CONSTANT
-            PressureControl()
+            self.PressureControl()
             
         print("QThread terminated")
         self.signal_end.emit()

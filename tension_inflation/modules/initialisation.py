@@ -3,6 +3,7 @@ import os.path
 import time
 import sys
 from pathlib import Path
+from shutil import copy
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import (QMainWindow, QWidget, QPushButton, QAction, QStatusBar, QFormLayout, QLabel, QLineEdit,
@@ -87,6 +88,7 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
             self.path = os.path.expanduser("~/Desktop")+"/results_tensionInflation"
         Path(self.path).mkdir(parents=True, exist_ok=True)  #Create a folder if there is not
 
+        copy(resource_path('./tension_inflation/PI_GCS2_DLL_x64.dll'), os.getcwd()) #Import dll file mandatory for the motor to run
 
 
 #######################################################
@@ -428,8 +430,15 @@ class IniWindow(QMainWindow):    #QDefinition of the graphical interface (GI) cl
         self.label.setText("Searching for origin")
         self.repaint()
         #First boundary
-
-        MotorPI.vel(55)
+        
+        try:
+            MotorPI.vel(55)
+        except:
+            QMessageBox.about(self, "Problem", "Retry please")
+            self.ini_start = False
+            self.timer_ini.stop()
+            MotorPI.disconnect()
+            return
 
 
         MotorPI.ref()

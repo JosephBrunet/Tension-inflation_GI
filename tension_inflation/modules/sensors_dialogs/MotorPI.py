@@ -81,17 +81,18 @@ def ref():
     if pi_device.qRON(pi_device.axes):
         pi_device.RON(pi_device.axes,False)
     pi_device.POS(pi_device.axes,0)
-    #gcscommands.GCSCommands.FRF(pi_device,pi_device.axes)   #Set ref position
     #pitools.waitontarget(pi_device)    #Time to the device to find ref
-    if gcscommands.GCSCommands.qFRF(pi_device,pi_device.axes)[pi_device.axes[0]] != True:   #Check if the ref is set
-        print('Error: Axis has no reference')
-        sys.exit("Error ref")
-    else:
-        print('Motor Reference set !')
+    try:
+        if pi_device.qFRF(pi_device.axes)[pi_device.axes[0]] != True:   #Check if the ref is set
+            print('Error: Axis has no reference')
+            sys.exit("Error ref")
+        else:
+            print('Motor Reference set !')
+    except:
+        print("Can't check if motor found ref")
 
 def isref():
-    return gcscommands.GCSCommands.qFRF(pi_device,pi_device.axes)[pi_device.axes[0]]
-    
+    return pi_device.qFRF(pi_device.axes)[pi_device.axes[0]]
 
 def vel(v):
     v_deg = (v /60)*(360 / p)

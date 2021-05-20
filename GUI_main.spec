@@ -17,6 +17,7 @@ a = Analysis(['tension_inflation/GUI_main.py'],
              cipher=block_cipher,
              noarchive=False)
 a.datas += Tree('./tension_inflation', prefix='tension_inflation')
+print(a.datas)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,

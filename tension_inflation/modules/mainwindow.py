@@ -691,8 +691,8 @@ class MainWindow(QMainWindow, Left_panel, Right_panel):    #Definition of the gr
 
         self.running = False
         self.pump_run = False
-        self.button_pause.setIcon(QIcon('tension_inflation/resources/button_pause.png'))
-        self.inibutton.setIcon(QIcon('tension_inflation/resources/button_start_push.png'))   #Change the button's icon by the resources
+        self.button_pause.setIcon(QIcon(resource_path('tension_inflation/resources/button_pause.png')))
+        self.inibutton.setIcon(QIcon(resource_path('tension_inflation/resources/button_start_push.png')))   #Change the button's icon by the resources
         self.positioning_phase()
 
         self.label_state.setText(" Stopped ")
